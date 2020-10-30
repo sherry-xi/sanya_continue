@@ -1,0 +1,83 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <form action="{:U('System/baseSet')}" method="post">
+        <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+            <tbody>
+            <tr>
+                <td align="right" width="30%">每年在线报名时间：</td>
+                <td>
+                    <input type="text" value="{$config.applyBegin}" name="applyBegin" id="applyBegin" class="web-input apply-date" readonly="readonly"/> 至
+                    <input type="text" value="{$config.applyEnd}" name="applyEnd" id="applyEnd" class="web-input apply-date"   readonly="readonly"/>
+                    <span class="green">{$year}-{$config.applyBegin}至{$year}-{$config.applyEnd} 可以在线报名，其他时间将会关闭报名。</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" width="30%">每年录取查询时间：</td>
+                <td>
+                    <input type="text" value="{$config.queryBegin}" name="queryBegin" id="queryBegin" class="web-input  apply-date"  readonly="readonly"/> 至
+                    <input type="text" value="{$config.queryEnd}" name="queryEnd" id="queryEnd" class="web-input  apply-date"  readonly="readonly"/>
+                    <span class="green">{$year}-{$config.queryBegin}至{$year}-{$config.queryEnd} 可以录取查询，其他时间将会关闭查询。</span>
+
+                </td>
+            </tr>
+            <tr>
+                <td align="right">专业设置：</td>
+                <td>
+                    <textarea class="web-textarea lg-textarea" name="class" style="height:120px;">{$config.class}</textarea><br/>
+                    <span class="green">一行一个专业</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">报名成功提示信息：</td>
+                <td>
+                    <textarea class="web-textarea lg-textarea" name="applyOk">{$config.applyOk}</textarea><br/>
+                    <span class="green">学生报名成功时会看到(xxx将会被替换成学生名称)。</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">录取查询提示(没被录取)：</td>
+                <td>
+                    <textarea class="web-textarea lg-textarea" name="applyNo">{$config.applyNo}</textarea><br/>
+                    <span class="green">学生录取查询时会看到(xxx将会被替换成学生名称)。</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">录取查询提示(被录取了)：</td>
+                <td>
+                    <textarea class="web-textarea lg-textarea" name="applyMsg">{$config.applyMsg}</textarea><br/>
+                    <span class="green">学生录取查询时会看到(xxx将会被替换成学生名称)。</span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td >
+                    <button type="submit" class="layui-btn">&nbsp;&nbsp;确&nbsp;&nbsp;定&nbsp;&nbsp;</button>
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="pid" value="{$pid}"/>
+                    <input type="hidden" name="mid" value="{$mid}"/>
+                    <input type="hidden" name="type" value="2"/>
+
+                    <button type="reset" class="layui-btn layui-btn-normal">&nbsp;&nbsp;重&nbsp;&nbsp;置&nbsp;&nbsp;</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<include file="Public/admin_footer"/>
+<script type="text/javascript" src="__LIB__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+
+    $(function(){
+        $(".apply-date").click(function(){
+            selectDate(this);
+        });
+    });
+
+    function selectDate(dateInput){
+        WdatePicker({el:dateInput,dateFmt:'MM-dd',startDate:'01-01',alwaysUseStartDate:true});
+        return false;
+    }
+</script>

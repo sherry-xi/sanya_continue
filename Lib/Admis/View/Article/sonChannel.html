@@ -1,0 +1,54 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <!-- 搜索栏 -->
+    <div class="main-search">
+        &nbsp;&nbsp;&nbsp;<span>【{$parent.name}】</span>
+
+        <a href="{:U('Article/channel',$menuId)}"
+           class="layui-btn layui-btn-small" style="margin-top:5px;float:right;">返回一级导航</a>
+
+        <a href="{:U('Article/addChannel',array('pid'=>$pid,'mid'=>$mid,'parent_id'=>$parent['id']))}"
+           class="layui-btn layui-btn-small" style="margin-top:5px;float:right;margin-right:10px">添加二级导航</a>
+
+
+    </div>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>名称</th>
+            <th>级别</th>
+            <th>文章数</th>
+            <th>排序</th>
+            <th>创建时间</th>
+            <th width="130px">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            <foreach name="channel" item="v">
+                <tr>
+                    <td>{$v.id}</td>
+                    <td>【{$parent.name}】- {$v.name}</td>
+                    <td>二级</td>
+                    <td>{$v.articleCnt}</td>
+                    <td>{$v.sort}</td>
+                    <td>{$v.create_time}</td>
+                    <td>
+                        <div class="layui-btn-group">
+
+                            <a href="{:U('Article/addChannel',array('id'=>$v['id'],'pid'=>$pid,'mid'=>$mid,'parent_id'=>$v['parent_id']))}"
+                               title="编辑" class="layui-btn layui-btn-primary layui-btn-small">
+                                <i class="layui-icon">&#xe642;</i>
+                            </a>
+                            <a onclick="return confirm('您确定要删除吗?')" href="{:U('Article/delChannel',array('id'=>$v['id'],'token'=>$token,'pid'=>$pid,'mid'=>$mid,'articleCnt' => $v['articleCnt']))}" class="layui-btn layui-btn-primary layui-btn-small">
+                                <i title="删除" class="layui-icon">&#xe640;</i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+</div>
+<include file="Public/admin_footer"/>

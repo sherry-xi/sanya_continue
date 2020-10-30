@@ -1,0 +1,42 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <!-- 搜索栏 -->
+    <div class="main-search">
+        <span class='green' ><b>提示:系统每天凌晨自动备份,并保留15天内的备份，15天前的备份凌晨自动删除</b></span>
+        <a href="{:U('back',$menuId)}" class="layui-btn layui-btn-small" onclick="return confirm('您确定要备份数据?')" style="margin-top:5px;float:right;margin-right:20px">备份数据</a>
+    </div>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>版本</th>
+            <th>备份时间</th>
+            <th>文件大小</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="data" item="v" key="k">
+            <tr>
+
+                <td>{$k+1}</td>
+                <td>{$v.version}</td>
+                <td>{$v.datetime}</td>
+                <td>{$v.size}</td>
+                <td>
+                    <a onclick="return confirm('下载后文件大小可能偏大,但数据是一致的')" href="{:U('download',array('pid'=>$pid,'mid'=>$mid,'filename'=>$v['file']))}" class="layui-btn layui-btn-small">下载</a>
+                    <a href="{:U('restore',array('pid'=>$pid,'mid'=>$mid,'filename'=>$v['file']))}" class="layui-btn layui-btn-small"   onclick="return confirm('您确定还原吗(建议先备份再还原)?')">还原</a>
+                    <a onclick="return confirm('您确定要删除?')" href="{:U('delBack',array('pid'=>$pid,'mid'=>$mid,'filename'=>$v['file']))}" class="layui-btn layui-btn-small">删除</a>
+                </td>
+            </tr>
+        </foreach>
+        <tr>
+            <td colspan="8" class="page-show">
+                {$pageShow}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<include file="Public/admin_footer"/>

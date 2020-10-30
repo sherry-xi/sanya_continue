@@ -1,0 +1,201 @@
+<include file="Public/admin_header"/>
+<link rel="stylesheet" href="__LIB__/lightbox2/dist/css/lightbox.min.css">
+
+<!-- 主体内容 -->
+    <div class="main-conent">
+        <!-- 搜索栏 -->
+        <div class="main-search">
+            <a class="layui-btn" id="img">
+                <i class="layui-icon" >&#xe62f;</i> 上传
+            </a>
+            <span class="green" style="font-size: 13px"> 支持图片类型jpg、jpeg、png、gif，大小500K内，最佳大小600px*400px</span>
+        </div>
+        <div  class="page-show" style="padding-right: 100px;">
+            {$pageShow}
+        </div>
+        <ul class="image-list">
+            <foreach name="images" item="image" key="k">
+                <li class="imgList-{$image.id}">
+                    <div class="image-item">
+                        <a href="__UPLOAD_IMG__/{$image.url}"  data-lightbox="example-set" data-title="{$image.remark}">
+                            <img  src="__UPLOAD_IMG__/{$image.url}" />
+                        </a>
+                    </div>
+                    <div class="image-text">
+                        <if condition="$image.status eq 1">
+                            <span class="red">
+                        </if>
+
+                        <script type="text/javascript">
+                            mySubstring("{$image.remark}",18);
+                        </script>
+                        <if condition="$image.status eq 1">
+                            </span>
+                        </if>
+                    </div>
+                     <span class="image-edit"  data-id="{$image.id}">
+                        <i class="layui-icon edit-img" title="编辑"  data-id="{$k}" >&#xe642;</i>
+                        <i class="layui-icon del-img" title="删除" data-id="{$image.id}">&#xe640;</i>
+                    </span>
+                </li>
+            </foreach>
+            <div class="clear"></div>
+        </ul>
+
+
+
+        <br/>
+    </div>
+</div>
+
+<!-- 编辑图片 -->
+<div id="image-area">
+    <table class="layui-table"  lay-skin="nob">
+
+        <tbody>
+        <tr>
+            <td align="right" width="20%"></td>
+            <td height="110">
+                <img src="" id="image"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">开放浏览</td>
+            <td>
+                <input type="radio" name="status" value="0" checked="checked" id="status0">&nbsp;<label for="status0">开放</label>
+                <input type="radio" name="status" value="1" id="status1">&nbsp;<label for="status1">关闭</label>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">显示在首页</td>
+            <td>
+                <input type="radio" name="show_index" value="1" id="show_index1">&nbsp;<label for="show_index1">显示</label>
+                <input type="radio" name="show_index" value="0" checked="checked" id="show_index0">&nbsp;<label for="show_index0">不显示</label>
+
+            </td>
+        </tr>
+        <tr>
+            <td align="right">相片描述</td>
+            <td>
+                <textarea class="web-textarea" style="height: 60px;" id="remark" placeholder="50字内"></textarea>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<script  type="text/javascript"  src="__LIB__/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
+
+<include file="Public/admin_footer"/>
+
+<script type="text/javascript" src="__LIB__/uploadImg.js"></script>
+<script type="text/javascript" src="__LIB__/layui-v1.0.0.9/layui.js"></script>
+
+<script type="text/javascript">
+    var uploadImgDocument = '__UPLOAD_IMG__';
+    var dataJson = '{$dataJsong}';
+
+    dataJson = eval('(' + dataJson + ')');
+    $(function(){
+
+        //显示和隐藏相片编辑和删除按钮
+        $(".image-list li").hover(function(){
+            $(this).find(".image-edit").show();
+        },function(){
+            $(this).find(".image-edit").hide();
+        });
+        //图片上传
+        uplogImg('img',"{:U('uploadImg3')}");
+
+        //删除
+        $(".del-img").click(function(){
+            var id = $(this).attr("data-id");
+            if(!confirm('您确定删除吗?')){
+                return false;
+            }
+            location.href = "{:U('delImg')}?id="+id;
+        });
+        //编辑
+        $(".edit-img").click(function(){
+            var key = $(this).attr('data-id');
+            var img = null;
+            for(i=0;i<dataJson.length;i++){
+                if(i==key){
+                    img = dataJson[i];
+                }
+            }
+            if(img == null || img==''){
+                alert("数据错误,请刷新再试试");
+                return false;
+            }
+            editImage(img);
+        });
+    });
+
+
+    /**
+     * 编辑或添加图片
+     */
+    function editImage(img){
+        $("#image").attr('src',uploadImgDocument+"/"+img.url);
+        $("#remark").val(img.remark);
+        $("input[name=status]").each(function(){
+            this.checked = $(this).val() == img.status;
+
+        });
+        $("input[name=show_index]").each(function(){
+            this.checked = $(this).val() == img.show_index;
+
+        });
+        //加载弹窗插件
+        layui.use('layer', function(layer){
+            var layer = layui.layer;
+            layer.open({
+                title:"编辑相片信息",
+                type: 1,
+                area:["550px"],
+                btn: [ '保存','取消'],
+                content: $('#image-area'), //这里content是一个普通的String
+                yes: function(index, layero){
+                    var remark = $.trim($("#remark").val());
+                    var status = $('input[name=status]:checked').val();
+                    var show_index = $('input[name=show_index]:checked').val();
+                    if(remark.length >50){
+                        alert("不能超过50个字");
+                        $("#remark").select().focus();
+                        return false;
+                    }
+                    $.post("{:U('editImg')}",{id:img.id,remark:remark,status:status,show_index:show_index},function(data){
+                        layer.close(index);
+                        history.go(0);
+                    },'json');
+                    //layer.close(index); //如果设定了yes回调，需进行手工关闭
+                }
+            });
+
+        });
+
+    }
+
+
+    /**
+     * 图片上传回调函数
+     * @param data
+     * @returns {boolean}
+     */
+    function uploadCallBack(data){
+        data = eval('(' + data + ')');
+
+        if(data == null && data=='' && data==undefined){
+            alert('上传失败');
+            return false;
+        }
+        if(data.errcode !=0){
+            alert('上传失败:'+data.msg);
+            return false;
+        }
+        history.go(0);
+    }
+
+</script>

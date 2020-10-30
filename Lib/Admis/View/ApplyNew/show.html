@@ -1,0 +1,106 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+
+<div style="width: 900px;margin: auto;background: ">
+    <table class="layui-table" >
+
+        <tbody>
+        <tr>
+            <td class="apply-item">所在地区</td>
+            <td colspan="3">{$data.province}</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="apply-top">三亚学院继续教育学院网上预报名登记表</td>
+        </tr>
+        <tr>
+            <td class="apply-item">报读层次</td>
+            <td colspan="3">{$apartment}</td>
+        </tr>
+        <tr>
+            <td class="apply-item">报读专业</td>
+            <td colspan="3">{$major}</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="apply-title">基本信息</td>
+        </tr>
+        <tr>
+            <td class="apply-item">姓名</td>
+            <td>{$data.name}</td>
+            <td class="apply-item">性别</td>
+            <td>
+                <if condition="$data['sex'] eq 0">男<else/>女</if>
+            </td>
+        </tr>
+        <tr>
+            <td class="apply-item">出生日期</td>
+            <td>{$data.birthday}</td>
+            <td class="apply-item">民族</td>
+            <td>{$data.nation}</td>
+        </tr>
+        <tr>
+            <td class="apply-item">身份证号码</td>
+            <td>{$data.idcard}</td>
+            <td class="apply-item">职业状况</td>
+            <td>{$data.is_job}</td>
+        </tr>
+        <tr>
+            <td class="apply-item">户口所在地</td>
+            <td>{$data.residence}</td>
+            <td class="apply-item">原毕业院校</td>
+            <td>{$data.gradute_school}</td>
+        </tr>
+        <tr>
+            <td class="apply-item">现有最高学历</td>
+            <td>{$data.education}</td>
+            <td class="apply-item">原毕业日期</td>
+            <td>{$data.graduate_date}</td>
+        </tr>
+        <tr>
+            <td class="apply-item">原学专业</td>
+            <td>{$data.graduate_major}</td>
+            <td class="apply-item">原毕业证号</td>
+            <td>{$data.graduate_id}</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="apply-title">联系方式</td>
+        </tr>
+        <tr>
+            <td class="apply-item">手  机</td>
+            <td>{$data.mobile}</td>
+            <td class="apply-item">固定电话</td>
+            <td>{$data.phone}</td>
+        </tr>
+        <tr>
+            <td class="apply-item">E-mail</td>
+            <td>{$data.email}</td>
+            <td class="apply-item">通信地址</td>
+            <td>{$data.address}</td>
+        </tr>
+        <tr>
+            <td class="apply-item">工作单位</td>
+            <td >{$data.company}</td>
+            <td class="apply-item">职  务</td>
+            <td >{$data.position}</td>
+        </tr>
+        <tr>
+            <td class="apply-item">单位地址</td>
+            <td >{$data.company_address}</td>
+            <td class="apply-item">单位电话</td>
+            <td >{$data.company_phone}</td>
+        </tr>
+        <tr>
+            <td class="apply-item">需特别说明的事宜</td>
+            <td colspan="3">{$data.remark}</td>
+        </tr>
+        <tr>
+            <td colspan="4" align="center">
+                <a class="layui-btn"  href="{:U('ApplyNew/index',['mid'=>$mid,'pid'=>$pid])}"> 返回 </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+<include file="Public/admin_footer"/>

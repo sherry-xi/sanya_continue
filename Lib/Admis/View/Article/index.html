@@ -1,0 +1,169 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <!-- 搜索栏 -->
+    <div class="main-search">
+        <form action="" method="get">
+            <select name="cid" style="width:120px;height:32px;" class="web-input">
+                <option value="">所有导航</option>
+                <foreach name="channel" item="ch">{$cid}
+                    <option value="parent_{$ch.id}"  <if condition="$cid eq $ch['id']"> selected="selected" </if>
+                                style="font-weight: bold">{$ch.name}</option>
+                    <foreach name="ch.son" item="v">
+                        <option value="{$v.id}"  <if condition="$cid eq $v['id']"> selected="selected" </if>
+                            >&nbsp;&nbsp;  {$v.name}</option>
+                    </foreach>
+                </foreach>
+            </select>
+            <if condition="$isDel eq 0">
+                <select name="status" style="width:90px;height:32px;" class="web-input">
+                    <option value="-1"  <if condition="$status eq -1"> selected="selected" </if> >开放状态</option>
+                    <option value="0" <if condition="$status eq 0"> selected="selected" </if> >开放</option>
+                    <option value="1" <if condition="$status eq 1"> selected="selected" </if> >不开放</option>
+                </select>
+                <input type="hidden" name="audit" value="1"/>
+                <!--
+                <select name="audit" style="width:90px;height:32px;" class="web-input">
+                    <option value="-1"  <if condition="$audit eq -1"> selected="selected" </if> >审核状态</option>
+                    <option value="0" <if condition="$audit eq 0"> selected="selected" </if> >未审核</option>
+                    <option value="1" <if condition="$audit eq 1"> selected="selected" </if> >审核通过</option>
+                    <option value="2" <if condition="$audit eq 2"> selected="selected" </if> >审核不通过</option>
+                </select>
+                -->
+            </if>
+            &nbsp;&nbsp;
+            <input type="checkbox"  value="1" name="top" id="top" <if condition="$top eq 1"> checked="checked" </if> >
+                <label for="top">置顶</label>
+            <!--
+                        <input type="checkbox"  value="1" name="slide" id="slide" <if condition="$slide eq 1"> checked="checked" </if> >
+                            <label for="slide">幻灯</label>
+
+                        <input type="checkbox"  value="1" name="scroll"  id="scroll" <if condition="$scroll eq 1"> checked="checked" </if> >
+                            <label for="scroll">滚动</label>
+                        -->
+            <input type="text" name="keyword" placeholder="标题、关键字" value="{$keyword}" class="web-input"/>
+            <button class="layui-btn layui-btn-small">搜索</button>
+
+            <if condition="$isDel eq 0">
+                <a href="{:U('index',$menuId)}">清空条件</a>
+            <else/>
+                <a href="{:U('recycle',$menuId)}">清空条件</a>
+            </if>
+
+            <if condition="$isDel eq 0">
+                <a href="{:U('Article/addArticle',$menuId)}"
+                   class="layui-btn layui-btn-small" style="margin-top:5px;float:right;margin-right:20px">添加文章</a>
+            </if>
+            <input type="hidden" name="pid" value="{$pid}"/>
+            <input type="hidden" name="mid" value="{$mid}"/>
+
+        </form>
+
+    </div>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>标题</th>
+            <th>所属导航</th>
+            <th>开放浏览</th>
+            <th>额外设置</th>
+            <!--
+            <th>审核状态</th>
+            -->
+            <th>
+                <if condition="$isDel eq 0">创建时间<else/>删除日期</if>
+            </th>
+            <th width="150px">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+            <if condition="!$article">
+                <tr><td colspan="7" align="center">没有数据</td></tr>
+            </if>
+            <foreach name="article" item="v">
+                <tr>
+                    <td>{$v.id}</td>
+                    <td>
+                        <script type="text/javascript">
+                            mySubstring("{$v.title}",18);
+                        </script>
+                    </td>
+                    <td>{$v.channel}</td>
+                    <td>
+                        <if condition="$v['status'] eq 0">
+                            <span class="green">开放</span>
+                            <else/>
+                            <span class="red">不开放</span>
+                        </if>
+                    </td>
+                    <th>
+                        <if condition="$v['top'] eq 1">
+                            <span class="green">置顶</span>
+                        </if>
+                        <if condition="$v['slide'] eq 1">
+                            <span class="green">幻灯</span>
+                        </if>
+                        <!--
+                        <if condition="$v['scroll'] eq 1">
+                            <span class="green">滚动</span>
+                        </if>
+                        -->
+                    </th>
+                    <!--
+                    <td>
+                        <if condition="$v['audit'] eq 0">
+                            <span>未审核</span>
+                            <elseif condition="$v['audit'] eq 1"/>
+                                <span class="green">通过</span>
+
+                            <else/>
+                            <span class="red">不通过</span>
+                        </if>
+                    </td>
+                    -->
+                    <td><if condition="$isDel eq 0">{$v.show_time}<else/>{$v.update_time}</if>
+                    </td>
+                    <td>
+                        <div class="layui-btn-group">
+                            <if condition="$isDel eq 0">
+                                <a href="{:U('Home/Index/article',array('id'=>$v['id'],'pid'=>$v['pid'],'mid'=>$v['cid']))}" title="查看文章" target="_blank" class="layui-btn layui-btn-primary layui-btn-small">
+                                    <i class="layui-icon">&#xe615;</i>
+                                </a>
+
+                                <a href="{:U('Article/addArticle',array('id'=>$v['id'],'pid'=>$pid,'mid'=>$mid))}" title="编辑" class="layui-btn layui-btn-primary layui-btn-small">
+                                    <i class="layui-icon">&#xe642;</i>
+                                </a>
+                                <a href="{:U('Article/addArticle',array('id'=>$v['id'],'pid'=>$pid,'mid'=>$mid,'copy'=>1))}" title="复制" class="layui-btn layui-btn-primary layui-btn-small">
+                                    <i class="layui-icon">&#xe60a;</i>
+                                </a>
+                                <a onclick="return confirm('您确定要删除吗?')"
+                                   href="{:U('Article/delArticle',array('id'=>$v['id'],'token'=>$token,'pid'=>$pid,'mid'=>$mid,'is_del'=>1))}" class="layui-btn layui-btn-primary layui-btn-small">
+                                    <i title="删除" class="layui-icon">&#xe640;</i>
+                                </a>
+
+
+                            <else/>
+
+                                <a onclick="return confirm('您确定要还原吗?')"
+                                   href="{:U('Article/delArticle',array('id'=>$v['id'],'token'=>$token,'pid'=>$pid,'mid'=>$mid,'is_del'=>0))}" class="layui-btn layui-btn-primary layui-btn-small">
+                                    <i title="还原" class="layui-icon">&#xe618;</i>
+                                </a>
+                                <a onclick="return confirm('您确定要彻底删除吗?')"
+                                   href="{:U('Article/delArticle',array('id'=>$v['id'],'token'=>$token,'pid'=>$pid,'mid'=>$mid,'is_del'=>2))}" class="layui-btn layui-btn-primary layui-btn-small">
+                                    <i title="彻底删除" class="layui-icon">&#xe640;</i>
+                                </a>
+
+                            </if>
+                        </div>
+                    </td>
+                </tr>
+            </foreach>
+        <tr>
+            <td colspan="8" class="page-show">{$pageShow}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<include file="Public/admin_footer"/>

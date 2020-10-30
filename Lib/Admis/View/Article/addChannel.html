@@ -1,0 +1,57 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <form action="{:U('Article/addChannelHandle')}" method="post" id="addChannelForm">
+        <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+            <tbody>
+            <tr>
+                <td align="right" width="30%">导航名称：</td>
+                <td>
+                    <input type="text" value="{$channel.name}"  class="web-input" name="name" id="name" required="required"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" width="30%">排序：</td>
+                <td>
+                    <input type="text" value="{$channel.sort|default=100}" name="sort" id="sort" class="web-input" required="required"/> 越小越往前
+                </td>
+            </tr>
+
+                <if condition="$parent_id eq 0">
+                    <tr>
+                    <td align="right">导航显示：</td>
+                    <td>
+                        <input type="radio" name="show_nav" value="0" id="nav_0"
+                        <if condition="!$channel or ($channel.show_nav eq 0)"> checked='checked' </if> />
+                        <label for="nav_0">显示</label>&nbsp;&nbsp;
+                        <input type="radio" name="show_nav" value="1"  id="nav_1"
+                        <if condition="$channel.show_nav eq 1"> checked='checked' </if> />
+                        <label for="nav_1">不显示</label>&nbsp;&nbsp;
+                    </td>
+                    </tr>
+                </if>
+
+
+            <tr>
+                <td></td>
+                <td >
+                    <button  class="layui-btn">&nbsp;&nbsp;确&nbsp;&nbsp;定&nbsp;&nbsp;</button>
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="id" value="{$channel.id}"/>
+                    <input type="hidden" name="parent_id" value="{$parent_id}"/>
+                    <input type="hidden" name="pid" value="{$pid}"/>
+                    <input type="hidden" name="mid" value="{$mid}"/>
+                    <if condition="$parent_id">
+                        <a href="{:U('Article/sonChannel',array('parent_id'=>$parent_id,'mid'=>$mid,'pid'=>$pid))}" class="layui-btn layui-btn-normal">&nbsp;&nbsp;取&nbsp;&nbsp;消&nbsp;&nbsp;</a>
+                        <else/>
+                        <a href="{:U('Article/channel',$menuId)}" class="layui-btn layui-btn-normal">&nbsp;&nbsp;取&nbsp;&nbsp;消&nbsp;&nbsp;</a>
+                    </if>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<include file="Public/admin_footer"/>

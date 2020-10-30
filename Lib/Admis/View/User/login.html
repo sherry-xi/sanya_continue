@@ -1,0 +1,65 @@
+<include file="Public/header"/>
+<div class="login">
+
+    <div class="login-title">后台登录
+            <a href="{:U('Home/Index/index')}" style="color:#fff;font-size:15px;float:right;margin-right:20px;" target="_blank">网站首页</a>
+    </div>
+    <form class="layui-form" action="{:U('loginHandle')}" method="post" id="loginForm">
+        <div class="layui-form-item">
+            <label class="layui-form-label">帐号</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" style="width: 250px;"  id="username" required="required"  placeholder="输入帐号" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="password" style="width: 250px;" id="password" required="required"   placeholder="输入密码"  class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">验证码</label>
+            <div class="layui-input-block">
+                <input type="text" name="code" id="code" required="required"
+                        class="layui-input" style="width: 250px;"  autocomplete="off">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+                <img class="codeChange" id="codeimg" src="{:U('verify')}" style="border:1px solid #ccc;display:inline-block;cursor: pointer"/>
+                <span class="codeChange"  class="green" style="cursor: pointer">换一张</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+                <button class="layui-btn" style="width: 155px;" >&nbsp;&nbsp;登&nbsp;&nbsp;录&nbsp;&nbsp;</button>
+                <input type="hidden" name="token" value="{$token}"/>
+            </div>
+        </div>
+    </form>
+    <if condition="$msg">
+        <if condition="$msg['errcode'] eq 0">
+            <div class="message-info message-success"><i  class="layui-icon">&#xe605;</i>{$msg.msg}</div>
+            <else/>
+            <div class="message-info message-error"><i  class="layui-icon">&#x1006;</i>{$msg.msg}</div>
+        </if>
+    </if>
+</div>
+<div style="position: absolute;bottom:0px;left:0px;width:100%;">
+    <include file="Public/footer"/>
+</div>
+
+
+<script type="text/javascript">
+    $(function(){
+        $(".codeChange").click(function(){
+
+            var url = "{:U('verify')}"+"?uid="+Math.random();
+            $("#codeimg").attr('src',url);
+
+        });
+    });
+</script>

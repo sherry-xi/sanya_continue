@@ -1,0 +1,73 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <!-- 搜索栏 -->
+    <div class="main-search">
+        <if condition="$isSuper">
+            <a href="{:U('UserManage/edit',$menuId)}" class="layui-btn layui-btn-small"
+               style="margin-top:5px;float:right;margin-right:20px">添加用户</a>
+        </if>
+    </div>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>账号</th>
+            <!--
+            <th>姓名</th>
+            <th>手机号</th>
+            <th>邮箱</th>
+            <th>状态</th>
+
+            <th>后台管理权限</th>
+            -->
+            <if condition="$isSuper">
+                <th>操作</th>
+            </if>
+
+        </tr>
+        </thead>
+        <tbody>
+            <foreach name="users" item="v">
+                <tr>
+                    <td>{$v.id}</td>
+                    <td>{$v.username}</td>
+                    <!--
+                    <td>{$v.truename}</td>
+                    <td>{$v.mobile}</td>
+                    <td>{$v.email}</td>
+                    <td>
+                        <if condition="$v['status']">
+                            <span class="red">禁用</span>
+                            <else/>
+                            <span class="green">启用</span>
+                        </if>
+                    </td>
+
+
+                    <td>{$v.right}</td>
+-->
+                    <if condition="$isSuper">
+                    <td>
+                        <div class="layui-btn-group">
+
+                            <a href="{:U('UserManage/edit',array('id'=>$v['id'],'pid'=>$pid,'mid'=>$mid))}" title="编辑/查看" class="layui-btn layui-btn-primary layui-btn-small">
+                                <i class="layui-icon">&#xe642;</i>
+                            </a>
+                            <a onclick="return confirm('您确定要删除吗?')" href="{:U('UserManage/del',array('id'=>$v['id'],'token'=>$token,'pid'=>$pid,'mid'=>$mid))}" class="layui-btn layui-btn-primary layui-btn-small">
+                                <i title="删除" class="layui-icon">&#xe640;</i>
+                            </a>
+                        </div>
+                    </td>
+                    </if>
+                </tr>
+            </foreach>
+            <tr>
+                <td colspan="8" class="page-show">
+                    {$pageShow}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<include file="Public/admin_footer"/>

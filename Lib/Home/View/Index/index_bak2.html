@@ -1,0 +1,108 @@
+<include file="Public/header"/>
+<script type="text/javascript">
+    var indexSlideTime  = "{$config.indexSlideTime}";   //幻灯片切换速度
+    var indexScrollTime = "{$config.indexScrollTime}";  //滚动栏切速度
+</script>
+<!-- 网站主体 -->
+<div class="web-main">
+
+    <div class="web-main-top">
+        <!--新版幻灯片-->
+        <div id="wrapper-img">
+
+            <!-- Slideshow 4 -->
+            <div class="callbacks_container">
+                <ul class="rslides" id="slider4">
+
+                    <foreach name="slide" item="vo" key="k" >
+                        <li style="text-align: center">
+                            <img src="__UPLOAD_IMG__/{$vo.img}" alt="" class="rslides-img">
+                            <p class="caption"><a href="{$vo.link}" target="_blank">{$k+1}/{$slide|count} {$vo.title}</a></p>
+                        </li>
+                    </foreach>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="web-channel">
+        <!-- 学院要闻 -->
+        <div class="web-news" >
+            <div class="web-channel-title">
+                <span class="web-channel-text">{$newsChannel.name}</span>
+                <span class="web-channel-text-tag">NEWS</span>
+                <a href="{$newsChannel.link}"  target="_blank" class="web-channel-more"><img src="__PUBLIC__/image/right_arrow.jpg"/> </a>
+            </div>
+            <div class="web-news-title-bg"></div>
+            <ul class="web-channel-news">
+                <foreach name="news" item="v">
+                    <li>
+                        <a target="_blank"
+                           href="{:U('article',array('id'=>$v['id'],'mid'=>$v['cid'],'pid'=>$newsChannel['parent_id ']))}">
+                            <script type="text/javascript">
+                                mySubstring("{$v.title}",22);
+                            </script>
+                        </a>
+                        <samp class="new-time">{$v.create_time|substr=###,0,11}</samp>
+                    </li>
+                </foreach>
+            </ul>
+        </div>
+
+
+
+        <div class="web-news">
+            <div class="web-channel-title">
+                <span class="web-channel-text ">{$informChannel.name}</span>
+                <span class="web-channel-text-tag">NOTICE</span>
+                <a href="{$informChannel.link}" class="web-channel-more"  target="_blank"><img src="__PUBLIC__/image/right_arrow.jpg"/></a>
+            </div>
+            <div class="web-news-title-bg"></div>
+            <ul class="web-channel-news">
+                <foreach name="inform" item="v">
+                    <li>
+                        <a target="_blank"
+                           href="{:U('article',array('id'=>$v['id'],'mid'=>$v['cid'],'pid'=>$informChannel['parent_id']))}">
+                            <script type="text/javascript">
+                                mySubstring("{$v.title}",22);
+                            </script>
+                        </a>
+                        <samp class="new-time">{$v.create_time|substr=###,0,11}</samp>
+                    </li>
+                </foreach>
+
+            </ul>
+        </div>
+        <div class="sys-login">
+            <div class="sys-login-main">
+                <ul style="margin-top: 10px;">
+                    <li class="sys-login-title"><img src="__PUBLIC__/image/syslogin1.png" />
+                        <span>系统登陆</span>
+                    </li>
+                    <li><a target="_blank" href="{$sysLinks.login.self}">自考学习平台</a></li>
+                    <li><a target="_blank" href="{$sysLinks.login.aduit}">成教学习平台</a></li>
+                    <li><a  target="_blank" href="{$sysLinks.login.education}">教育培训平台</a></li>
+                </ul>
+                <ul>
+                    <li class="sys-login-title" >
+                        <img src="__PUBLIC__/image/syslogin.png" />
+                        <span>招生导航</span>
+                    </li>
+                    <li><a  target="_blank"  href="{$sysLinks.navi.slef}">自学考试</a></li>
+                    <li><a target="_blank"  href="{$sysLinks.navi.aduit}">成人教育</a></li>
+                    <li><a target="_blank"  href="{$sysLinks.navi.education}">教育培训</a></li>
+                </ul>
+                <div class="self-join">
+                    <a target="_blank"  href="{$sysLinks.join}"><i class="layui-icon">&#xe613;</i>&rarr;网上预报名</a>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+</div>
+<div class="clear"></div>
+<include file="Public/footer"/>
+<script type="text/javascript" src="__JS__/index.js"></script>

@@ -1,0 +1,130 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <form action="{:U('System/baseSet')}" method="post">
+        <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+            <tbody>
+            <tr>
+                <td align="right" width="30%">学校名称：</td>
+                <td>
+                    <input type="text" value="{$config.school}" name="school" class="web-input lg-input"  />
+                </td>
+            </tr>
+            <tr>
+                <td align="right" width="30%">网站名称：</td>
+                <td>
+                    <input type="text" value="{$config.website}" name="website" class="web-input  lg-input"/>
+                </td>
+            </tr>
+            <!--
+            <tr>
+                <td align="right">联系电话：</td>
+                <td>
+                    <input type="text" value="{$config.phone}" name='phone' class="web-input  lg-input"  />
+
+                </td>
+            </tr>
+            <tr>
+                <td align="right">联系QQ：</td>
+                <td>
+                    <input type="text" value="{$config.qq}" name='qq' class="web-input  lg-input"  />
+
+                </td>
+            </tr>
+            <tr>
+                <td align="right">微信公众号：</td>
+                <td>
+                    <input type="text" value="{$config.weixin}" name='weixin' class="web-input  lg-input"  />
+
+                </td>
+            </tr>
+            <tr>
+                <td align="right">联系邮箱：</td>
+                <td>
+                    <input type="text" value="{$config.email}"name="email" class="web-input  lg-input" />
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td align="right">网站关键字：</td>
+                <td>
+                    <input type="text" value="{$config.keyword}" name="keyword" class="web-input  lg-input" />
+                    <span  class="green">多个用逗号隔开,建议8个字内（有助于搜索引擎搜索）</span>
+                </td>
+            </tr>
+            <!--
+            <tr>
+                <td align="right">客服QQ1：</td>
+                <td>
+                    <input type="text" value="{$config.qqChat}" name="qqChat" class="web-input  lg-input" />
+                    <span class="green">首页顶部的QQ</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">客服QQ2：</td>
+                <td>
+                    <input type="text" value="{$config.qqChat2}" name="qqChat2" class="web-input  lg-input" />
+                    <span ><a class="green" target="_blank" href="http://shang.qq.com/v3/widget.html">qq聊天申请地址[腾讯官方]</a></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right">首页幻灯片：</td>
+                <td>
+                    <input type="number" value="{$config.indexSlideTime}" name="indexSlideTime" class="web-input  lg-input" />
+                    <span class="green">幻灯片切换速度，单位秒，建议5秒左右</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right">首页滚动栏：</td>
+                <td>
+                    <input type="number" value="{$config.indexScrollTime}" name="indexScrollTime" class="web-input  lg-input" />
+                    <span class="green">滚动切换速度，单位秒，建议5秒左右</span>
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td align="right">网站描述：</td>
+                <td>
+                    <textarea class="web-textarea  lg-textarea" name="description">{$config.description}</textarea>
+                    <span  class="green">建议80个字内（有助于搜索引擎搜索）</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">关闭网站：</td>
+                <td>
+                    <input type="radio" name="close" value="0" id="close0"
+                        <if condition="!$config or $config.close eq 0">checked='checked'</if> /> &nbsp;<label for="close0">开放</label> &nbsp; &nbsp;
+                    <input type="radio" name="close" value="1" id="close1"
+                        <if condition="$config.close eq 1">checked='checked'</if>/> &nbsp;<label for="close1">关闭</label>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">关闭原因：</td>
+                <td>
+                    <textarea class="web-textarea  lg-textarea" name="close_reasion">{$config.close_reasion}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">底部版权：</td>
+                <td>
+                    <textarea class="web-textarea lg-textarea" name="right">{$config.right}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td >
+                    <input type="hidden" name="pid" value="{$pid}"/>
+                    <input type="hidden" name="mid" value="{$mid}"/>
+                    <button type="submit" class="layui-btn">&nbsp;&nbsp;确&nbsp;&nbsp;定&nbsp;&nbsp;</button>
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <button type="reset" class="layui-btn layui-btn-normal">&nbsp;&nbsp;重&nbsp;&nbsp;置&nbsp;&nbsp;</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<include file="Public/admin_footer"/>

@@ -1,0 +1,34 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <!-- 搜索栏 -->
+
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>账号</th>
+            <th>姓名</th>
+            <th>操作</th>
+            <th>IP</th>
+            <th>日期</th>
+        </tr>
+        </thead>
+        <tbody>
+            <foreach name="logs" item="v">
+                <tr>
+                    <td>{$v.id}</td>
+                    <td>{$v.username}</td>
+                    <td>{$v.truename}</td>
+                    <td>{$v.action}</td>
+                    <td>{$v.ip}</td>
+                    <td>{$v.create_time}</td>
+                </tr>
+            </foreach>
+        <tr>
+            <td colspan="6" class="page-show">{$pageShow}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<include file="Public/admin_footer"/>

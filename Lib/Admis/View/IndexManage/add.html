@@ -1,0 +1,131 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <form action="{:U('IndexManage/addHandle')}" method="post" id="addSlideForm">
+        <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+            <tbody>
+            <tr>
+                <td align="right" width="30%">简述：</td>
+                <td colspan="2">
+                    <input type="text" value="{$slide.title}"  name="title" id="title" class="web-input" style="width: 280px;" required="required"/>
+                    <span class="red">*</span>
+                    <span class="green">请填写2到40个字符</span>
+                </td>
+
+            </tr>
+            <tr>
+                <td align="right" width="30%">链接：</td>
+                <td colspan="2">
+                    <input type="text" value="{$slide.link}" name="link"  class="web-input"  style="width: 280px;" required="required"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" width="30%">排序：</td>
+                <td colspan="2">
+                    <input type="text" value="{$slide.sort|default='100'}" id="sort" name="sort" class="web-input"  style="width: 280px;" required="required"/>
+                    <span class="red">*</span>
+
+                    <span class="green">越小越靠前</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">是否启用：</td>
+                <td colspan="2">
+                    <input type="radio" name="status" value="0" id="status0" <if condition="!$slide or $slide.status eq 0">checked='checked'</if>
+                    />&nbsp;<label for="status0">启用</label>&nbsp;&nbsp;
+                    <input type="radio" name="status" value="1" id="status1" <if condition="$slide.status eq 1">checked='checked'</if>
+                    />&nbsp;<label for="status1">停用</label>
+
+                </td>
+            </tr>
+            <if condition="$type eq 2">
+                <tr>
+                    <td align="right">显示位置：</td>
+                    <td colspan="2">
+
+                        <foreach name="channel" item="v">
+                            <input type="checkbox" name="cid[]"  {$v.checked} value="{$v.id}" id="cid{$v.id}"/>
+                            &nbsp;<label for="cid{$v.id}">{$v.name}</label>&nbsp;&nbsp;<br/>
+                        </foreach>
+
+                    </td>
+                </tr>
+            </if>
+            <tr>
+                <td align="right">图片：</td>
+                <td width="100px">
+                    <a class="layui-btn layui-btn-small" id="img">选择图片</a>
+                    <span class="red">*</span>
+                    <input type="text" id="thumbMsg" style="height:1px;width:1px;border:0px"/>
+                </td>
+                <td class="slide-img">
+                    <if condition="$slide['img']">
+                        <a href="__UPLOAD_IMG__/{$slide.img}" target="_blank">
+                        <img src="__UPLOAD_IMG__/{$slide.img}"/>
+                        </a>
+                    </if>
+                    最佳大小
+                    <if condition="$type eq 0">620px*350px</if>
+                    <if condition="$type eq 1">230px*150px</if>
+                    <if condition="$type eq 2">230px*60px</if>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2">
+                    <button href="" class="layui-btn">&nbsp;&nbsp;确&nbsp;&nbsp;定&nbsp;&nbsp;</button>
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="id" value="{$slide.id}"/>
+                    <input type="hidden" name="pid" value="{$pid}"/>
+                    <input type="hidden" name="mid" value="{$mid}"/>
+                    <input type="hidden" name="img" id="imgSrc" value="{$slide.img}"/>
+                    <input type="hidden" name="type" id="type" value="{$type}"/>
+                    <if condition="$type eq 0">
+                        <a href="{:U('IndexManage/index',array('mid'=>$mid,'pid'=>$pid,'type'=>$type))}" class="layui-btn layui-btn-normal">&nbsp;&nbsp;取&nbsp;&nbsp;消&nbsp;&nbsp;</a>
+                    </if>
+                    <if condition="$type eq 1">
+                        <a href="{:U('IndexManage/scroll',array('mid'=>$mid,'pid'=>$pid,'type'=>$type))}" class="layui-btn layui-btn-normal">&nbsp;&nbsp;取&nbsp;&nbsp;消&nbsp;&nbsp;</a>
+                    </if>
+                    <if condition="$type eq 2">
+                        <a href="{:U('IndexManage/link',array('mid'=>$mid,'pid'=>$pid,'type'=>$type))}" class="layui-btn layui-btn-normal">&nbsp;&nbsp;取&nbsp;&nbsp;消&nbsp;&nbsp;</a>
+                    </if>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<include file="Public/admin_footer"/>
+<script type="text/javascript" src="__LIB__/uploadImg.js"></script>
+<script type="text/javascript">
+
+    $(function() {
+        var param     = "img";
+        var uploadUrl = "{:U('IndexManage/upload')}";
+        //初始化图片上传
+        uplogImg(param,uploadUrl);
+
+    });
+    /**
+     * 图片上传回调函数
+     * @param data
+     * @returns {boolean}
+     */
+    function uploadCallBack(data){
+        data = eval('(' + data + ')');
+
+        if(data == null && data=='' && data==undefined){
+            alert('上传失败');
+            return false;
+        }
+        if(data.errcode !=0){
+            alert('上传失败:'+data.msg);
+            return false;
+        }
+        var img = '<img src="'+data.path+data.url+'"/>';
+        $('.slide-img').html(img);
+        $("input[name=img]").val(data.url);
+        $("#thumbMsg").trigger("hidemsg");
+    }
+</script>

@@ -1,0 +1,216 @@
+<include file="Public/channel_header"/>
+
+<!-- 频道页-在线报名 -->
+<div class="web-channel-content">
+    <form  action="{:U('applyHandle')}" method="post" id="applyStudentForm">
+        <table border="0" cellpadding="0" cellspacing="0" class="apply">
+
+            <if condition="$config['applyBanner']">
+                <tr>
+                    <td colspan="2">
+                        <img src="__UPLOAD_IMG__/{$config.applyBanner}" style="width: 100%;height:160px;"/>
+                    </td>
+                </tr>
+            </if>
+            <tr>
+                <td class="apply-title" colspan="2"><h1>在线报名</h1></td>
+            </tr>
+            <if condition="$_SESSION['applyOk']">
+                <tr>
+                    <td colspan="2">
+                        <div class="apply-msg">{$_SESSION['applyOk']}</div>
+                    </td>
+                </tr>
+            </if>
+            <if condition="$queryMsg eq ''">
+
+
+            <!-- 个人信息 -->
+            <tr>
+                <td class="apply-pig">
+                    <a class="layui-btn layui-btn-radius layui-btn-warm layui-btn-mini">1.个人信息</a>
+                </td>
+                <td style="padding:0px;"></td>
+            </tr>
+            <tr>
+                <td class="apply-tag">姓名</td>
+                <td><input type="text" name="name" id="name" class="apply-input"><span class="red">*</span></td>
+            </tr>
+
+            <tr>
+                <td class="apply-tag">身份证号</td>
+                <td><input type="text" name="card" id="card" class="apply-input"><span class="red">*</span></td>
+            </tr>
+            <tr>
+                <td class="apply-tag">出生年月</td>
+                <td><input type="text" name="birthday" id="birthday" class="apply-input" readonly>
+                    <button onClick="return selectDate()" class="web-btn">选择</button><span class="red">*</span></td>
+            </tr>
+            <tr>
+                <td class="apply-tag">性 &nbsp;&nbsp;&nbsp;&nbsp; 别</td>
+                <td>
+                    <input type="radio" name="sex" value="男" id="sex0" checked/>&nbsp;<label for="sex0">男</label>&nbsp;&nbsp;
+                    <input type="radio" name="sex" value="女" id="sex1"/>&nbsp;<label for="sex1">女</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">民 &nbsp;&nbsp;&nbsp;&nbsp; 族</td>
+                <td>
+                    <input type="text" name="nation" id="nation" class="apply-input"><span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">政治面貌</td>
+                <td>
+                    <select name="politics">
+                        <option value="团员">团员</option>
+                        <option value="党员">党员</option>
+                        <option value="群众">群众</option>
+                    </select><span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">健康情况</td>
+                <td>
+                    <input type="text" name="health" class="apply-input">
+                </td>
+            </tr>
+            <!--2.家庭信息-->
+            <tr>
+                <td class="apply-pig">
+                    <a class="layui-btn layui-btn-radius layui-btn-warm layui-btn-mini">2.家庭信息</a>
+                </td>
+                <td style="padding:0px;"></td>
+            </tr>
+            <tr>
+                <td class="apply-tag">籍 &nbsp;&nbsp;&nbsp;&nbsp; 贯</td>
+                <td>
+                    <input type="text" name="native" id="native" class="apply-input" style="width: 250px;"><span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">户口所在地</td>
+                <td>
+                    <input type="text" name="account_addr" id="account_addr" class="apply-input" style="width: 250px;"><span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">家庭住址</td>
+                <td>
+                    <input type="text" name="addr" id="addr" class="apply-input" style="width: 250px;"><span class="red">*</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="apply-tag">是否精准扶贫家庭</td>
+                <td>
+                    <input type="radio" value="是" name="poverty"/>&nbsp;<label>是</label>&nbsp;&nbsp;
+                    <input type="radio" value="否" name="poverty" checked/>&nbsp;<label>否</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">是否低保家庭</td>
+                <td>
+                    <input type="radio" name="low_security"   value="是"/>&nbsp;<label>是</label>&nbsp;&nbsp;
+                    <input type="radio" name="low_security"  value="否" checked/>&nbsp;<label>否</label>
+                </td>
+            </tr>
+            <!-- 3.学校信息 -->
+            <tr>
+                <td class="apply-pig">
+                    <a class="layui-btn layui-btn-radius layui-btn-warm layui-btn-mini">3.学校信息</a>
+                </td>
+                <td style="padding:0px;"></td>
+            </tr>
+            <tr>
+                <td class="apply-tag">报考专业</td>
+                <td>
+                    <select name="class" id="class" >
+                        <option value="">选择专业</option>
+                        <foreach name="class" item="v">
+                            <option value="{$v}">{$v}</option>
+                        </foreach>
+                    </select><span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">初中毕业学校</td>
+                <td>
+                    <input type="text" name="school" id="school" class="apply-input"><span class="red">*</span>
+                </td>
+            </tr>
+
+            <!---4.联系信息-->
+            <tr>
+                <td class="apply-pig">
+                    <a class="layui-btn layui-btn-radius layui-btn-warm layui-btn-mini">4.联系信息</a>
+                </td>
+                <td style="padding:0px;"></td>
+            </tr>
+            <tr>
+                <td class="apply-tag">QQ号</td>
+                <td>
+                    <input type="text" name="qq" class="apply-input" maxlength="20"><span class="red">*</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="apply-tag">微信号</td>
+                <td>
+                    <input type="text" name="weixin" class="apply-input" maxlength="20">
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">本人联系电话</td>
+                <td>
+                    <input type="text" name="phone" id="phone" class="apply-input"><span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">家长联系电话</td>
+                <td>
+                    <input type="text" name="parent_phone" id="parent_phone" class="apply-input"><span class="red">*</span>
+                </td>
+            </tr>
+         <tr>
+             <td></td>
+             <td>
+                 <input type="hidden" name="id" id="id" value=""/>
+                 <input type="hidden" name="token" value="{$token}"/>
+                 <button type="submit" class="layui-btn layui-btn-radius">确定报名</button>
+                 <button type="reset" class="layui-btn layui-btn-normal layui-btn-radius">重新填写</button>
+             </td>
+         </tr>
+          <else/>
+                <tr>
+                    <td colspan="2">
+                        <div class="apply-msg">
+                            {$queryMsg}
+                        </div>
+                    </td>
+                </tr>
+            </if>
+            <tr>
+                <td class="2"></td>
+            </tr>
+            <tr>
+                <td class="2"></td>
+            </tr>
+    </table>
+    </form>
+</div>
+<include file="Public/channel_footer"/>
+<script type="text/javascript" src="__LIB__/nice-validator-1.1.1/jquery.validator.min.js?local=zh-CN"></script>
+<script type="text/javascript" src="__JS__/validate.js"></script>
+
+<script type="text/javascript" src="__LIB__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    function selectDate(){
+        var dateInput = $("#birthday")[0];
+        WdatePicker({el:dateInput,dateFmt:'yyyy-MM',startDate:'2002-01-01',minDate:'1990-01',maxDate:'2020-01',alwaysUseStartDate:true});
+        return false;
+    }
+    $("#birthday").click(function(){
+        selectDate();
+    });
+</script>

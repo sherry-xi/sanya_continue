@@ -1,0 +1,13 @@
+</div>
+<div class="clear"></div>
+</div>
+<include file="Public/footer"/>
+<script type="text/javascript">
+    $(function(){
+        var rightH = $(".web-channel-right").height();
+        var leftH = $(".web-channel-left").height();
+        if(leftH > rightH){
+            $(".web-channel-right").height(leftH);
+        }
+    });
+</script>

@@ -1,0 +1,57 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+
+    <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+        <tbody>
+        <tr>
+            <td></td>
+            <td  >
+                <h1 style="font-size:20px;color: #009688">我的账号信息</h1>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" width="30%">账号：</td>
+            <td>{$user.username}</td>
+        </tr>
+        <!--
+        <tr>
+            <td align="right">姓名：</td>
+            <td>{$user.truename}</td>
+        </tr>
+        <tr>
+            <td align="right">手机号：</td>
+            <td>{$user.mobile}</td>
+        </tr>
+        <tr>
+            <td align="right">邮箱：</td>
+            <td>{$user.email}</td>
+        </tr>
+        -->
+        <tr>
+            <td align="right">最近一次更新信息：</td>
+            <td>{$user.update_time}</td>
+        </tr>
+        <tr>
+            <td align="right">最近一次登陆时间：</td>
+            <td>{$log.create_time}</td>
+        </tr>
+        <tr>
+            <td align="right">最近一次登陆IP：</td>
+            <td>{$log.ip}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <!--
+                <a href="{:U('User/profileEdit')}" class="layui-btn">修改信息</a>
+                -->
+                <a href="{:U('User/password')}" class="layui-btn layui-btn-normal">修改密码</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<include file="Public/admin_footer"/>

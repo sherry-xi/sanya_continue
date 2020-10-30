@@ -1,0 +1,45 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <form action="{:U('user/profileEditHandle')}" method="post" id="profileForm">
+        <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+            <tbody>
+            <tr>
+                <td align="right" width="30%">账号：</td>
+                <td>{$user.username}</td>
+            </tr>
+            <tr>
+                <td align="right" width="30%">姓名：</td>
+                <td>
+                    <input type="text" value="{$user.truename}" name="truename" id="truename" class="web-input" placeholder="输入姓名" />
+                    <span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">手机号：</td>
+                <td>
+                    <input type="text" value="{$user.mobile}"name='mobile' id="mobile" class="web-input" placeholder="输入手机号" />
+                    <span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">邮箱：</td>
+                <td>
+                    <input type="text" value="{$user.email}"name="email" id="email" class="web-input" placeholder="输入邮箱" />
+                    <span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td >
+                    <button href="" class="layui-btn">&nbsp;&nbsp;确&nbsp;&nbsp;定&nbsp;&nbsp;</button>
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <a href="{:U('User/profile')}" class="layui-btn layui-btn-normal">&nbsp;&nbsp;取&nbsp;&nbsp;消&nbsp;&nbsp;</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<include file="Public/admin_footer"/>

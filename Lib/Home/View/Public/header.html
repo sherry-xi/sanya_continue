@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$config.website}</title>
+    <meta name="keywords" content="{$config.keyword}">
+    <meta name="description" Content="{$config.description}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <link href="__CSS__/index.css" type="text/css" rel="stylesheet">
+    <link href="__CSS__/config.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="__LIB__/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="__JS__/common.js"></script>
+    <link href="__LIB__/layui-v1.0.0.9/css/layui.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="__LIB__/responsiveslides/responsiveslides.js"></script>
+    <script type="text/javascript" src="__LIB__/responsiveslides/index.js"></script>
+    <link href="__LIB__/responsiveslides/responsiveslides.css" type="text/css" rel="stylesheet">
+    <link href="__LIB__/responsiveslides/index.css" type="text/css" rel="stylesheet">
+
+    <style type="text/css">
+
+
+        .web-channel-son li{list-style-image: url("__PUBLIC__/image/icon01.jpg");
+            list-style-position:inside;}
+    </style>
+    <script type="text/javascript">
+        var searchUrl = "{:U('Home/Channel/index')}";
+    </script>
+</head>
+<body>
+<div class="web-container">
+    <!-- 网站头部 -->
+    <div class="web-top">
+        <div class="web-top-box">
+            <div class="web-top-logo">
+                <!--
+                <a href="{:U('Home/Index/index')}"><img src="__UPLOAD_IMG__/{$config.logo}"/></a>
+                -->
+                <a href="{:U('Home/Index/index')}"><img src="__PUBLIC__/image/logo3.png"/></a>
+            </div>
+            <div class="web-school">
+                <div class="school-name-ch">继续教育学院</div>
+                <div  class="school-name-en">COLLEGE OF CONTINUING EDUCATION</div>
+            </div>
+            <div class="web-top-search">
+                <input placeholder="请输入搜索" value="{$keyword}" type="text" id="search-keyword" name="keyword"/>
+                <i class="layui-icon"  id="search-btn">&#xe615;</i>
+                <img id="search-btn-bak" src="__PUBLIC__/image/search_btn.png" style="display: none"/>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 网站导航 -->
+    <div class="web-nav">
+        <ul class="web-nav-list">
+            <li data-son-cnt="0" <eq name="pid" value="0">class="active"</eq>  data-id="0"><a href="{:U('Home/Index/index')}" class="cssNavi-color">首页</a></li>
+            <foreach name="channel.parent" item="v">
+                <li data-son-cnt="{$v.son_count}" data-id="{$v.id}" <eq name="pid" value="$v.id">class="active"</eq>>
+                    <a href="{$v.link}" class="cssNavi-color">{$v.name}</a>
+                </li>
+            </foreach>
+            <li  data-son-cnt="0" ><a   href="/index.php/Home/Apply/index.html" class="cssNavi-color" >网上报名</a></li>
+
+
+        </ul>
+
+        <!-- 二级导航分类 -->
+        <div class="web-nav-son  cssNaviSon-bg">
+            <div class="web-nav-son-list">
+                <foreach name="channel.son" item="son" key="k">
+                    <ul class="web-nav-son-list-ul son-{$k}">
+                        <foreach name="son" item="v">
+                            <li><a href="{$v.link}" class="cssNaviSon-color">{$v.name}</a></li>
+                        </foreach>
+                    </ul>
+                </foreach>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <if condition="$msg">
+        <if condition="$msg['errcode'] eq 0">
+            <div class="message-info message-success"><i  class="layui-icon">&#xe605;</i>{$msg.msg}</div>
+            <else/>
+            <div class="message-info message-error"><i  class="layui-icon">&#x1006;</i>{$msg.msg}</div>
+        </if>
+    </if>

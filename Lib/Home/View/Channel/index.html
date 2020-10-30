@@ -1,0 +1,49 @@
+<include file="Public/channel_header"/>
+        <!-- 频道页-文章列表 -->
+        <div class="web-channel-content">
+		<if condition="!$newsList">
+			<h1 style='margin:100px auto;font-size:20px;color:#666;' align='center'>哎呀,没有相关数据...</h1>
+		</if>
+            <table border="0" cellpadding="0" cellspacing="0" class="article-list">
+				
+                <foreach name="newsList" item="v">
+                <tr>
+                    <!--
+                    <td width="220px">
+                        <a href="{:U('Home/Index/article',array('pid'=>$pid,'mid'=>$v['cid'],'id'=>$v['id']))}" >
+                            <if condition="$v['thumb']">
+                            <img src="__UPLOAD_IMG__/{$v.thumb}" class="web-channel-thumb">
+                            </if>
+                        </a>
+                    </td>
+                    -->
+                    <td >
+                        <div class="article-list-title">
+                            <div style="float: left;">
+                                <a  style="color:{$v.title_color}" class='bold{$v.title_bold}' target="_blank"
+                                    href="{:U('Home/Index/article',array('pid'=>$pid,'mid'=>$v['cid'],'id'=>$v['id']))}" >
+                                    {$v.title}
+                                </a>
+                            </div>
+                            <div  class="article-list-time">{$v.create_time} &nbsp; <small>{$v.author}</small></div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="article-list-description">
+                            <a href="{:U('Home/Index/article',array('pid'=>$pid,'mid'=>$v['cid'],'id'=>$v['id']))}" target="_blank" >
+                                <script type="text/javascript">
+                                    mySubstring("{$v.description}",100);
+                                </script>
+
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </foreach>
+                <tr>
+                    <td colspan="2" class="page-show">
+                        <div>{$page}</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+<include file="Public/channel_footer"/>

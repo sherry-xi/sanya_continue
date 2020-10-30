@@ -1,0 +1,16 @@
+/**
+* css 配置文件 主要是颜色和字体
+*/
+*{font-family: '微软雅黑';}
+
+.web-top-text input{background: #f39801;}           /*右上角联系方式*/
+.web-channel-title{background: #fdfdfd;}               /*首页频道新闻标题栏*/
+.web-news{background: #fdfdfd;}                 /*首页频道新闻*/
+.web-scroll-title{background: #017cc2;}
+
+/*后台*/
+.top{border-bottom: 1px solid #345368;} /*头部地下分割线*/
+.left{background: #0f4a48;}                /*左侧菜单*/
+.left .menu li a{color:#fff;}           /*左侧菜单*/
+.left .menu li a.menu-title{background: #345368;border-bottom:1px solid #27424c;}   /*左侧父级菜单*/
+.footer{background: #345368; color:#eae7e7;}   /*底部*/

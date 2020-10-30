@@ -1,0 +1,115 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <!-- 搜索栏 -->
+    <div class="main-search">
+        <form action="" method="get">
+            <select name="apid" style="width:180px;" class="web-input web-select ">
+                <option value="">所有报名层次</option>
+                <foreach name="apartment" item="v">
+                    <option value="{$v.id}"  <if condition="$get['apid'] eq $v['id']"> selected</if>>{$v.name}</option>
+                </foreach>
+            </select>
+            <!--
+            <select name="sex"  class="web-select web-input" style="width:80px;">
+                <option value="">性别</option>
+                <option value="男" <if condition="$get['sex'] eq '男'"> selected</if>>男</option>
+                <option value="女" <if condition="$get['sex'] eq '女'"> selected</if>>女</option>
+            </select>
+
+                        <input type="text" name="keyword" style="width: 230px;" placeholder="姓名 身份证 手机号 地址 毕业学校" value="{$get.keyword}" class="web-input"/>
+
+            <input type="text" name="keyword" style="width: 230px;" placeholder="姓名/身份证/手机号/地址/毕业学校" value="{$get.keyword}" class="web-input"/>
+            <input type="text" name="begin" class="web-input" style="width: 100px" placeholder="开始报名日期"/>
+            <input type="text" name="begin" class="web-input"  style="width: 100px"  placeholder="结束报名日期"/>
+            -->
+            <button class="layui-btn layui-btn-small"> 搜  索 </button>
+                        <!--<a href="{:U('index',array('mid'=>$mid,'pid'=>$pid))}">清空条件</a>-->
+            <a href="{:U('export')}" class="layui-btn layui-btn-small" style="margin-top:5px;float:right;margin-right:5px">导出Excel</a>
+        </form>
+
+    </div>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>身份证</th>
+            <th>报考层次|专业</th>
+            <th>毕业学校</th>
+            <th>联系电话</th>
+            <th>通信地址</th>
+            <th>报名日期</th>
+            <th style="text-align: center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <if condition="!$student">
+            <tr><td colspan="10"><h1 align="center">没有数据</h1></td></tr>
+        </if>
+        <foreach name="student" item="v" key="k">
+            <tr>
+                <td width="50px">{$k+1+$page->listRows*($page->nowPage-1)}</td>
+                <td>{$v.name}</td>
+                <td>
+                    <if condition="$v">
+                        男
+                        <else/>
+                        女
+                    </if>
+                </td>
+                <td>{$v.idcard}</td>
+                <td>{$v.apply_type}|{$v.apply_major}</td>
+                <td>
+                    <script type="text/javascript">
+                        mySubstring('{$v.gradute_school}',10)
+                    </script>
+                </td>
+                <td>{$v.mobile}</td>
+                <td>
+                    <script type="text/javascript">
+                        mySubstring('{$v.residence}',10)
+                    </script>
+                    </td>
+                <td>
+                    {$v.created_at|substr=###,0,11}
+                </td>
+
+                <td>
+                    <a href="{:U('show',array('id'=>$v['id'],'pid'=>$pid,'mid'=>$mid))}" >
+                        <i title="查看" class="layui-icon">&#xe615;</i>
+                    </a>
+                    <a href="{:U('edit',array('id'=>$v['id'],'pid'=>$pid,'mid'=>$mid))}" >
+                        <i title="编辑" class="layui-icon">&#xe642;</i>
+                    </a>
+                    <a onclick="return confirm('您确定要删除吗?')"
+                       href="{:U('delete',array('id'=>$v['id']))}" >
+                        <i title="删除" class="layui-icon">&#xe640;</i>
+                    </a>
+                </td>
+            </tr>
+        </foreach>
+        <tr>
+
+        </tr>
+            <tr>
+                <td colspan="10" class="page-show">
+                    {$pageShow}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<include file="Public/admin_footer"/>
+<script type="text/javascript">
+    $(function(){
+        $("#clearAppyStudent").click(function(){
+            var year = $(this).attr('data-value');
+            if(confirm("您确定清空"+year+"年报名数据?")){
+                return confirm("再次确认清空数据(不可恢复)");
+            }
+            return false;
+        });
+    });
+</script>

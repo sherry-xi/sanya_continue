@@ -1,0 +1,222 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <form action="{:U('editHandle')}" method="post" id="applyStudentForm">
+        <table class="layui-table apply" style="background: #fbfbfb;" lay-skin="nob">
+            <tbody>
+            <tr>
+                <td class="apply-tag">备 &nbsp;&nbsp;&nbsp;&nbsp;注</td>
+                <td>
+                    {$message}
+                </td>
+            </tr>
+            <!-- 个人信息 -->
+            <tr>
+                <td class="apply-pig">
+                    <a class="layui-btn layui-btn-radius layui-btn-warm layui-btn-mini">1.个人信息</a>
+                </td>
+                <td style="padding:0px;"></td>
+            </tr>
+            <tr>
+                <td class="apply-tag">姓 &nbsp;&nbsp;&nbsp;&nbsp; 名</td>
+                <td><input type="text" value="{$student.name}" name="name" id="name" class="apply-input"><span class="red">*</span></td>
+            </tr>
+
+            <tr>
+                <td class="apply-tag">身份证号</td>
+                <td><input type="text" name="card" id="card" value="{$student.card}" class="apply-input"><span class="red">*</span></td>
+            </tr>
+            <tr>
+                <td class="apply-tag">出生年月</td>
+                <td><input type="text" name="birthday" value="{$student.birthday}" id="birthday" class="apply-input" readonly>
+                    <button onClick="return selectDate()" class="web-btn">选择</button><span class="red">*</span></td>
+            </tr>
+            <tr>
+                <td class="apply-tag">性 &nbsp;&nbsp;&nbsp;&nbsp; 别</td>
+                <td>
+                    <input type="radio" name="sex" value="男" id="sex0" <if condition="$student['sex'] eq '男'"> checked </if>
+                            />&nbsp;<label for="sex0">男</label>&nbsp;&nbsp;
+                    <input type="radio" name="sex" value="女" id="sex1" <if condition="$student['sex'] eq '女'"> checked </if>
+                            />&nbsp;<label for="sex1">女</label>
+                    <input type="radio" name="sex" value="未知" id="sex2" <if condition="$student['sex'] eq '未知'"> checked </if>
+                    />&nbsp;<label for="sex2">未知</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">民 &nbsp;&nbsp;&nbsp;&nbsp; 族</td>
+                <td>
+                    <input type="text" value="{$student.nation}" name="nation" id="nation" class="apply-input"><span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">政治面貌</td>
+                <td>
+                    <select name="politics">
+                        <option value="">未知</option>
+
+                        <option value="团员" <if condition="$student['politics'] eq '团员'"> selected </if>  >团员</option>
+                        <option value="党员" <if condition="$student['politics'] eq '党员'"> selected </if> >党员</option>
+                        <option value="群众" <if condition="$student['politics'] eq '群众'"> selected </if>  >群众</option>
+                    </select><span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">健康情况</td>
+                <td>
+                    <input type="text" name="health" value="{$student.health}" id="health" class="apply-input">
+                </td>
+            </tr>
+            <!--2.家庭信息-->
+            <tr>
+                <td class="apply-pig">
+                    <a class="layui-btn layui-btn-radius layui-btn-warm layui-btn-mini">2.家庭信息</a>
+                </td>
+                <td style="padding:0px;"></td>
+            </tr>
+            <tr>
+                <td class="apply-tag">籍 &nbsp;&nbsp;&nbsp;&nbsp; 贯</td>
+                <td>
+                    <input type="text" value="{$student.native}" name="native" id="native" class="apply-input" style="width: 250px;"><span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">户口所在地</td>
+                <td>
+                    <input type="text" value="{$student.account_addr}" name="account_addr" id="account_addr" class="apply-input" style="width: 250px;"><span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">家庭住址</td>
+                <td>
+                    <input type="text" value="{$student.addr}"  name="addr" id="addr" class="apply-input" style="width: 250px;"><span class="red">*</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="apply-tag">是否精准扶贫家庭</td>
+                <td>
+                    <input type="radio" name="poverty" id="poverty0" value="是" <if condition="$student['poverty'] eq '是'">checked</if> />
+                        &nbsp;<label for="poverty0">是</label>&nbsp;&nbsp;
+                    <input type="radio" name="poverty" id="poverty1" value="否" <if condition="$student['poverty'] eq '否'">checked</if>/>
+                        &nbsp;<label for="poverty1">否</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">是否低保家庭</td>
+                <td>
+                    <input type="radio" name="low_security" id="low_security0" value="是" <if condition="$student['low_security'] eq '是'">checked</if> />
+                        &nbsp;<label for="low_security0">是</label>&nbsp;&nbsp;
+                    <input type="radio" name="low_security"  id="low_security1" value="否" <if condition="$student['low_security'] eq '否'">checked</if> />
+                        &nbsp;<label for="low_security1">否</label>
+                </td>
+            </tr>
+            <!-- 3.学校信息 -->
+            <tr>
+                <td class="apply-pig">
+                    <a class="layui-btn layui-btn-radius layui-btn-warm layui-btn-mini">3.学校信息</a>
+                </td>
+                <td style="padding:0px;"></td>
+            </tr>
+            <tr>
+                <td class="apply-tag">报考专业</td>
+                <td>
+                    <select name="class" id="class">
+                        <option value="">未知</option>
+                        <foreach name="class" item="v">
+                            <option value="{$v}" <if condition="$student['class'] eq $v">selected</if>  >{$v}</option>
+                        </foreach>
+                    </select>
+                    <span class="red">*</span>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">初中毕业学校</td>
+                <td>
+                    <input type="text" name="school" value="{$student.school}" class="apply-input"><span class="red">*</span>
+                </td>
+            </tr>
+
+            <!---4.联系信息-->
+            <tr>
+                <td class="apply-pig">
+                    <a class="layui-btn layui-btn-radius layui-btn-warm layui-btn-mini">4.联系信息</a>
+                </td>
+                <td style="padding:0px;"></td>
+            </tr>
+            <tr>
+                <td class="apply-tag">QQ号</td>
+                <td>
+                    <input type="text" name="qq" id="qq" value="{$student.qq}" class="apply-input">
+                    <span class="red">*</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="apply-tag">微信号</td>
+                <td>
+                    <input type="text" name="weixin" id="weixin" value="{$student.weixin}" class="apply-input">
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">本人联系电话</td>
+                <td>
+                    <input type="text" name="phone" id="phone" value="{$student.phone}" class="apply-input">
+                    <span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-tag">家长联系电话</td>
+                <td>
+                    <input type="text" name="parent_phone" id="parent_phone" value="{$student.parent_phone}" class="apply-input">
+                    <span class="red">*</span>
+                </td>
+            </tr>
+            <if condition="$get['t'] neq 'student'">
+                <tr>
+                    <td class="apply-tag"><b>是否录取</b></td>
+                    <td>
+                        <input type="radio" name="status" value="0" checked id="status0"><label for="status0">不录取</label>&nbsp;&nbsp;
+                        <input type="radio" name="status" value="1" id="status1"><label for="status1">录取</label>
+                    </td>
+                </tr>
+            </if>
+            <tr>
+                <td></td>
+                <td >
+                    <button  class="layui-btn" >&nbsp;&nbsp;确&nbsp;&nbsp;定&nbsp;&nbsp;</button>
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="mid" value="{$mid}"/>
+                    <input type="hidden" name="id" id="id" value="{$student.id}"/>
+                    <input type="hidden" name="pid" value="{$pid}"/>
+                    <input type="hidden" name="year" value="{$year}"/>
+                    <input type="hidden" name="t" value="{$get.t}"/>
+
+                    <a href="{$backUrl}" class="layui-btn layui-btn-normal">&nbsp;&nbsp;返&nbsp;&nbsp;回&nbsp;&nbsp;</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<include file="Public/admin_footer"/>
+<script type="text/javascript" src="__LIB__/My97DatePicker/WdatePicker.js"></script>
+
+<script type="text/javascript">
+    function selectDate(){
+        var dateInput = $("#birthday")[0];
+        WdatePicker({el:dateInput,dateFmt:'yyyy-MM',startDate:'2002-01-01',minDate:'1990-01',maxDate:'2020-01',alwaysUseStartDate:true});
+        return false;
+    }
+
+    $(function(){
+        $("#submit").click(function(){
+            var status = $("input[name=status]:checked").val();
+            if(status == 1){
+                if(!confirm("您是否确定录取该学生")){
+                    return false;
+                }
+            }
+        });
+    });
+</script>

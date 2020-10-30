@@ -1,0 +1,70 @@
+<include file="Public/admin_header"/>
+<link rel="stylesheet" href="__LIB__/color/jquery.minicolors.css">
+
+<!-- 主体内容 -->
+<div class="main-conent">
+    <form action="{:U('System/baseSet')}" method="post">
+        <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob" border="0">
+            <thead>
+            <tr>
+                <th colspan="3" >首页颜色配置</th>
+                <input type="hidden">
+
+            </tr>
+            </thead>
+            <tr>
+                <td style="text-align: right"  width="30%">名称</td>
+                <td style="text-align: left;width: 120px">字体颜色</td>
+                <td>背景颜色</td>
+            </tr>
+
+            <tbody>
+            <foreach name="css" item="list">
+                <tr>
+                    <td align="right">{$list.name}：</td>
+                    <foreach name="list.list" item="v" key="k">
+                    <td>
+                        <if condition="$k neq 'none' ">
+                        <input type="text"  name="{$k}" class="form-control color" data-control="hue" value="{$v}" style="height:25px;width:70px;">
+                        </if>
+                    </td>
+                    </foreach>
+                </tr>
+            </foreach>
+            <tr>
+                <td></td>
+                <td colspan="2" >
+                    <button type="submit" class="layui-btn">&nbsp;&nbsp;确&nbsp;&nbsp;定&nbsp;&nbsp;</button>
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="type" value="3"/>
+                    <input type="hidden" name="pid" value="{$pid}"/>
+                    <input type="hidden" name="mid" value="{$mid}"/>
+                    <button type="reset" class="layui-btn layui-btn-normal">&nbsp;&nbsp;重&nbsp;&nbsp;置&nbsp;&nbsp;</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<include file="Public/admin_footer"/>
+<script src="__LIB__/color/jquery.minicolors.js"></script>
+<script type="text/javascript">
+    //颜色选择器
+    $(".color").minicolors({
+        control: $(this).attr('data-control') || 'hue',
+        defaultValue: $(this).attr('data-defaultValue') || '',
+        inline: $(this).attr('data-inline') === 'true',
+        letterCase: $(this).attr('data-letterCase') || 'lowercase',
+        opacity: $(this).attr('data-opacity'),
+        position: $(this).attr('data-position') || 'bottom left',
+        change: function(hex, opacity) {
+            if( !hex ){
+                return;
+            }
+            if( opacity ) {
+                hex += ', ' + opacity;
+            }
+        },
+
+    });
+</script>

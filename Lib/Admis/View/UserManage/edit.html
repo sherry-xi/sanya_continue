@@ -1,0 +1,125 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <form action="{:U('userManage/editHandle')}" method="post" id="userAddForm">
+        <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+            <tbody>
+            <tr>
+                <td align="right" width="30%">账号：</td>
+                <td>
+                    <input type="text" value="{$user.username}" name="username" id="username" <if condition="$user['id']">readonly="readonly"</if>
+                           class="web-input" placeholder="输入账号" required="required"/>
+                    <if condition="!$user['id']">
+                        <span class="red">*</span>
+                        <span class="green">请填写2-12位数字、字母、下划线</span>
+                    </if>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right" width="30%">姓名：</td>
+                <td>
+                    <input type="text" value="{$user.truename}" name="truename" id="truename" class="web-input" placeholder="输入姓名"/>
+                    <span class="red">*</span>
+                </td>
+            </tr>
+            <!--
+            <tr>
+                <td align="right">手机号：</td>
+                <td>
+                    <input type="text" value="{$user.mobile}"name='mobile' id="mobile" class="web-input" placeholder="输入手机号" required="required"/>
+                    <span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">邮箱：</td>
+                <td>
+                    <input type="text" value="{$user.email}"name="email" id="email" class="web-input" placeholder="输入邮箱" required="required"/>
+                    <span class="red">*</span>
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td align="right">密码：</td>
+                <td>
+                    <input type="password" name="password" id="password" class="web-input" placeholder="输入密码"/>
+                    <if condition="!$user['id']"><span class="red">*</span></if>
+                    <span class="green">请填写6-16位字符，不能包含空格<if condition="$user['id']">(留空则不修改密码)</if></span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">确认密码：</td>
+                <td>
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="web-input" placeholder="确认密码" />
+                    <if condition="!$user['id']"><span class="red">*</span></if>
+                </td>
+            </tr>
+            <!--
+            <tr>
+                <td align="right">状态：</td>
+                <td>
+                    <input type="radio" name="status" value="0" id="status0" <if condition="$user['status'] eq 0"> checked </if>/>
+                        &nbsp;<label for="status0">启用</label>&nbsp;&nbsp;
+                    <input type="radio" name="status" value="1" id="status1" <if condition="$user['status'] eq 1"> checked </if>/>
+                        &nbsp;<label for="status1">禁用</label>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right">发表文章权限：</td>
+                <td>
+                    <foreach name="channel1" item="parent">
+                        <ul class="right-list">
+                            <li>{$parent.name}</li>
+                            <foreach name="parent.son" item="v" key="k">
+                                <if condition="$k and ($k%7 eq 0)">
+                                    <li style="visibility: hidden">{$parent.name}</li>
+                                </if>
+                                <li>
+                                    <input type="checkbox" <if condition="in_array($v['id'],$userArticlePer)">checked="checked"</if> id="per1{$v.id}" name="article_per[]" value="{$v.id}"/><label for="per1{$v.id}">&nbsp;{$v.name}</label>
+                                </li>
+                            </foreach>
+                            <div style="clear:both;"></div>
+                        </ul>
+                    </foreach>
+                    <hr/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">审核文章权限：</td>
+                <td>
+                    <foreach name="channel2" item="parent">
+                       <input type="checkbox" <if condition="in_array($parent['id'],$userCheckPer)">checked="checked"</if> id="per2{$parent.id}" name="article_check_per[]" value="{$parent.id}"/>
+                        <label for="per2{$parent.id}">{$parent.name}</label>&nbsp;&nbsp;
+                    </foreach>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">后台管理权限：</td>
+                <td>
+                    <foreach name="permission" item="v">
+                        <input type="checkbox" name="per[]" <if condition="in_array($v['id'],$userPer)">checked="checked"</if> value="{$v.id}" id="per{$v.id}"/>
+                        <label for="per{$v.id}">{$v.name}</label>&nbsp;&nbsp;
+                    </foreach>
+                </td>
+            </tr>-->
+            <tr>
+                <td></td>
+                <td >
+                    <button href="" class="layui-btn">&nbsp;&nbsp;确&nbsp;&nbsp;定&nbsp;&nbsp;</button>
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="mid" value="{$mid}"/>
+                    <input type="hidden" name="pid" value="{$pid}"/>
+                    <input type="hidden" name="id" id="id" value="{$user.id}"/>
+                    <a href="{:U('UserManage/index',$menuId)}" class="layui-btn layui-btn-normal">&nbsp;&nbsp;取&nbsp;&nbsp;消&nbsp;&nbsp;</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<include file="Public/admin_footer"/>
+

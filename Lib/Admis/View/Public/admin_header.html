@@ -1,0 +1,62 @@
+<include file="Public/header"/>
+<div class="container">
+    <div class="top">
+        <div class="top-logo">
+            <img src="__UPLOAD_IMG__/{$config.logo}">
+        </div>
+        <div class="web-school">
+            <div class="school-name-ch">三亚学院·继续教育学院</div>
+            <div  class="school-name-en">UNIVERSITY OF SANYA·COLLEGE OF CONTINUING EDUCATION</div>
+        </div>
+        <div class="top-menu">
+            <ul>
+                <li>
+                    您号,{$Think.session.user.username} [<a href="{:U('Admis/User/profile')}">我的账号</a>
+                    <a href="{:U('Admis/User/loginOut')}" onclick="return confirm('您确定退出吗?')" style="color: #e88e1b;">退出</a>]
+                </li>
+                <li><a href="{:U('Home/Index/index')}" target="_blank">预览网站</a></li>
+                <li><a href="{:U('Admis/User/profile')}">后台首页</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="main">
+        <div class="left">
+            <ul class="menu">
+                <foreach name="menuList" item="menu">
+                    <li>
+                        <a href="javascript:;" class="menu-title" data-id="{$menu.id}">{$menu.name}</a>
+                    </li>
+                    <li class="menu-son-list son-{$menu.id} {$menu.hide}" style="height:10px;"></li>
+                    <foreach name="menu.son" item="son" key="k">
+                        <li class="menu-son-list son-{$menu.id} {$menu.hide}">
+                            <if condition="$mid eq $son['id']">
+                                <a class="menu-son active" href="{$son.link}">{$son.name}</a>
+                            <else/>
+                                <a class="menu-son" href="{$son.link}">{$son.name}</a>
+                            </if>
+                        </li>
+                    </foreach>
+                    <li class="menu-son-list son-{$menu.id} {$menu.hide}" style="height:10px;"></li>
+
+                </foreach>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="position">
+                <span class="layui-breadcrumb">
+                      <a href="{:U('Admis/Index/index')}">首页</a>
+                      <foreach name="pos" item="v">
+                          <a href="{$v.link}">{$v.name}</a>
+                      </foreach>
+                </span>
+            </div>
+
+            <if condition="$msg">
+                    <if condition="$msg['errcode'] eq 0">
+                        <div class="message-info message-success"><i  class="layui-icon">&#xe605;</i>{$msg.msg}</div>
+                        <else/>
+                        <div class="message-info message-error"><i  class="layui-icon">&#x1006;</i>{$msg.msg}</div>
+                    </if>
+            </if>

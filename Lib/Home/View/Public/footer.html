@@ -1,0 +1,37 @@
+
+
+<!-- 网站底部 -->
+<div class="web-foot">
+    <div class="web-foot-text">
+        <div class="foot-msg">
+            {$config.right_msg}
+        </div>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript" src="__JS__/common.js"></script>
+<script type="text/javascript" src="__JS__/indexCommon.js"></script>
+<script type="text/javascript" src="__LIB__/layui-v1.0.0.9/layui.js"></script>
+<script type="text/javascript" src="__JS__/index.js"></script>
+<script type="text/javascript">
+    var publicDir = "__UPLOAD_IMG__/";
+    var backgroundImg = "{$config.backgroundImg}";
+    var searchUrl = "{:U('Channel/index')}";
+    $(function(){
+        if(backgroundImg){
+            $("body").css("background","url('"+publicDir+backgroundImg+"')");
+        }
+
+        layui.use('element', function(){
+            var element = layui.element;
+        });
+
+    });
+
+
+
+</script>

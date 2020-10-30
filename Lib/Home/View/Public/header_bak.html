@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$config.website}</title>
+    <meta name="keywords" content="{$config.keyword}">
+    <meta name="description" Content="{$config.description}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <link href="__CSS__/index.css" type="text/css" rel="stylesheet">
+    <link href="__CSS__/config.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="__LIB__/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="__JS__/common.js"></script>
+    <link href="__LIB__/layui-v1.0.0.9/css/{$layui}.css" type="text/css" rel="stylesheet">
+
+    <script type="text/javascript" src="__LIB__/responsiveslides/responsiveslides.js"></script>
+    <script type="text/javascript" src="__LIB__/responsiveslides/index.js"></script>
+    <link href="__LIB__/responsiveslides/responsiveslides.css" type="text/css" rel="stylesheet">
+    <link href="__LIB__/responsiveslides/index.css" type="text/css" rel="stylesheet">
+
+    <style type="text/css">
+
+        .web-scroll-box{width:{$scrollBoxWith}px}
+        .web-nav-list li:hover{background: {$config.cssNaviSon-bg};color:{$config.cssNaviSon-color};}   /*一级导航滑过背景*/
+        .web-nav-list li.active{background: {$config.cssNaviSon-bg};}         /*一级导航点中*/
+        .web-nav-list  a:hover{color:{$config.cssNaviSon-color} !important;}
+        .web-nav-list li.active a{color:{$config.cssNaviSon-color} !important;  }
+
+        {$configCss}
+
+    </style>
+    <script type="text/javascript">
+
+</script>
+</head>
+<body>
+<div class="web-container">
+    <!-- 网站头部 -->
+    <div class="web-top">
+        <div class="web-top-box">
+            <div class="web-top-logo">
+                <a href=""><img src="__UPLOAD_IMG__/{$config.logo}"/></a>
+            </div>
+            <div class="web-top-message">
+                UNIVERSITY OF SANYA·SCHOOL OF CONTINUING EDUCATION
+            </div>
+        </div>
+
+
+    <!-- 网站导航 -->
+    <div class="web-nav">
+        <ul class="web-nav-list">
+            <li  <eq name="pid" value="0">class="active"</eq>  data-id="0"><a href="{:U('Home/Index/index')}" class="cssNavi-color">首页</a></li>
+            <foreach name="channel.parent" item="v">
+                <li data-id="{$v.id}" <eq name="pid" value="$v.id">class="active"</eq>>
+                    <a href="{$v.link}" class="cssNavi-color">{$v.name}</a>
+                </li>
+            </foreach>
+        </ul>
+        <!-- 二级导航分类 -->
+        <div class="web-nav-son  cssNaviSon-bg">
+            <div class="web-nav-son-list">
+                <foreach name="channel.son" item="son" key="k">
+                    <ul class="web-nav-son-list-ul son-{$k}">
+                        <foreach name="son" item="v">
+                            <li><a href="{$v.link}" class="cssNaviSon-color">{$v.name}</a></li>
+                        </foreach>
+                    </ul>
+                </foreach>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <if condition="$msg">
+        <if condition="$msg['errcode'] eq 0">
+            <div class="message-info message-success"><i  class="layui-icon">&#xe605;</i>{$msg.msg}</div>
+            <else/>
+            <div class="message-info message-error"><i  class="layui-icon">&#x1006;</i>{$msg.msg}</div>
+        </if>
+    </if>

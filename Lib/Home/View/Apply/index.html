@@ -1,0 +1,215 @@
+<include file="Public/channel_header"/>
+<script type="text/javascript">
+    var applyUrl = "{:U('Home/Apply/add')}";
+</script>
+<!-- 网上报名 -->
+<div class="web-channel-content">
+
+    <form action="{:U('Apply/add')}" method="post"  class="apply-form" >
+
+        <table class="layui-table" >
+
+            <tbody>
+            <tr>
+                <td colspan="4" class="apply-top">三亚学院继续教育学院网上预报名登记表</td>
+            </tr>
+            <tr>
+                <td class="apply-item">所在地区</td>
+                <td colspan="3">
+                    <select name="province">
+                        <foreach name="province" item="v">
+                            <option value="{$v}">{$v}</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-item">报读层次</td>
+                <td colspan="3">
+                    <select name="apply_type">
+                        <foreach name="apply_type" item="v">
+                            <option value="{$v.id}">{$v.name}</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="apply-item">报读专业</td>
+                <td colspan="3">
+                    <select name="apply_major">
+                        <foreach name="apply_major" item="v">
+                            <option value="{$v.id}">{$v.name}</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="apply-title">基本信息</td>
+            </tr>
+            <tr>
+                <td class="apply-item" style="letter-spacing: 2em;">姓名</td>
+                <td>
+                    <input type="text"  name="name"  required="required" autocomplete="off" class="apply-input"/>
+                    <span class="red">*</span>
+                </td>
+                <td class="apply-item" style="letter-spacing: 2em;">性别</td>
+                <td>
+                    <input type="radio" name="sex" value="0" id="nav_0" checked/>
+                    <label for="nav_0">男</label>&nbsp;&nbsp;
+                    <input type="radio" name="sex" value="1"  id="nav_1"/>
+                    <label for="nav_1">女</label>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-item">出生日期</td>
+                <td>
+                    <input type="text" name="birthday" id="birthday" class="apply-input" readonly  required="required"/>
+                    <span class="red">*</span>
+                </td>
+                <td class="apply-item" style="letter-spacing: 2em;">民族</td>
+                <td>
+                    <input type="text" name="nation"  class="apply-input"  required="required"/>
+                    <span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-item">身份证号码</td>
+                <td>
+                    <input type="text" name="idcard"  class="apply-input"  required="required"/>
+                    <span class="red">*</span>
+                </td>
+                <td class="apply-item">职业状况</td>
+                <td>
+                    <select name="is_job">
+                        <option value="已就业">已就业</option>
+                        <option value="未就业">未就业</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-item">户口所在地</td>
+                <td>
+                    <input type="text"  name="residence"  class="apply-input"  required="required"/>
+                    <span class="red">*</span>
+                </td>
+                <td class="apply-item">原毕业院校</td>
+                <td>
+                    <input type="text" name="gradute_school"  class="apply-input"  required="required"/>
+                    <span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-item">现有最高学历</td>
+                <td>
+                    <input type="text" name="education"  class="apply-input"  required="required"/>
+                    <span class="red">*</span>
+                </td>
+                <td class="apply-item">原毕业日期</td>
+                <td>
+                    <input type="text" value="" name="graduate_date" id="graduate_date" class="apply-input" readonly />
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-item">原学专业</td>
+                <td>
+                    <input type="text"  name="graduate_major"  class="apply-input"  required="required"/>
+                    <span class="red">*</span>
+                </td>
+                <td class="apply-item">原毕业证号</td>
+                <td>
+                    <input type="text"  name="graduate_id"  class="apply-input" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="apply-title">联系方式</td>
+            </tr>
+            <tr>
+                <td class="apply-item" style="letter-spacing: 2em;">手机</td>
+                <td>
+                    <input type="text" name="mobile"  class="apply-input"  required="required"/>
+                    <span class="red">*</span>
+                </td>
+                <td class="apply-item">固定电话</td>
+                <td>
+                    <input type="text"  name="phone"  class="apply-input"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-item">E-mail</td>
+                <td>
+                    <input type="text" name="email"  class="apply-input"/>
+                </td>
+                <td class="apply-item">通信地址</td>
+                <td>
+                    <input type="text"  name="address"   class="apply-input"  required="required"/>
+                    <span class="red">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-item">工作单位</td>
+                <td >
+                    <input type="text"  name="company"  class="apply-input"/>
+                </td>
+                <td class="apply-item" style="letter-spacing: 2em;">职务</td>
+                <td >
+                    <input type="text"  name="position"  class="apply-input"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-item">单位地址</td>
+                <td >
+                    <input type="text" name="company_address" class="apply-input"/>
+                </td>
+                <td class="apply-item">单位电话</td>
+                <td >
+                    <input type="text"  name="company_phone"  class="apply-input"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="apply-item">需特别说明事宜</td>
+                <td colspan="3">
+                    <textarea rows="4" cols="80" name="remark"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" align="center">
+                    <button class="layui-btn" id="submit-apply"> 提  &nbsp;&nbsp;交 </button>
+                    <button  class="layui-btn" type="reset"> 重  &nbsp;&nbsp;写 </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+
+</div>
+<include file="Public/channel_footer"/>
+<script type="text/javascript" src="__LIB__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    function selectDate(id,startDate){
+        var dateInput = $("#"+id)[0];
+        WdatePicker({el:dateInput,dateFmt:'yyyy-MM',startDate:startDate,minDate:'1990-01',maxDate:'2020-01',alwaysUseStartDate:true});
+        return false;
+    }
+    $("#birthday").click(function(){
+        WdatePicker({el:$("#birthday")[0],dateFmt:'yyyy-MM-dd',startDate:'2002-01-01',minDate:'1990-01',maxDate:'2020-01',alwaysUseStartDate:true});
+    });
+    $("#graduate_date").click(function(){
+        selectDate("graduate_date",'2012-01-01');
+    });
+    $(function(){
+        var apartment =  eval('(' + '{$jsonApartment}' + ')');
+        $("select[name=apply_type]").change(function(){
+            var id = $(this).val();
+            var major = apartment[id]['major'];
+            var html = '';
+
+            for(let key  in major){
+                html += '<option value="'+key+'">'+major[key]['name']+'</option>';
+            }
+            $("select[name=apply_major]").html(html);
+
+        });
+    });
+</script>

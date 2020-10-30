@@ -1,0 +1,202 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+        <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+            <tbody>
+            <tr>
+                <td colspan="3" style="color: #009688">logo 设置,支持jpg、png、bmp、jpeg、gif格式图片 500K以内 (图片太大会影响网站加载速度) 最佳大小200px*120px</td>
+            </tr>
+            <!--
+            <tr>
+                <td align="right" width="30%">网站logo：</td>
+                <td width="100px">
+                    <a class="layui-btn layui-btn-small" id="logo">选择图片</a>
+                </td>
+                <td id="logo-td" width="210px">
+                    <if condition="$config['logo']">
+                        <a href="__UPLOAD_IMG__/{$config.logo}" target="_blank">
+                            <img src="__UPLOAD_IMG__/{$config.logo}" class="img-view"/>
+                        </a>
+                    </if>
+                </td>
+                <td>
+                    <span class="input-msg">最佳大小350px*80px</span>
+                </td>
+            </tr>
+            -->
+            <!--
+            <tr>
+                <td align="right">首页中部banner：</td>
+                <td>
+                    <a class="layui-btn layui-btn-small" id="centerBanner">选择图片</a>
+                </td>
+                <td id="centerBanner-td">
+                    <if condition="$config['centerBanner']">
+                        <a href="__UPLOAD_IMG__/{$config.centerBanner}" target="_blank">
+                            <img src="__UPLOAD_IMG__/{$config.centerBanner}" class="img-view"/>
+                        </a>
+                    </if>
+                </td>
+                <td>
+                    <span class="input-msg">最佳大小1140px*55px</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right">前台背景：</td>
+                <td>
+                    <a class="layui-btn layui-btn-small" id="backgroundImg">选择图片</a>
+                </td>
+                <td id="backgroundImg-td">
+                    <if condition="$config['backgroundImg']">
+                        <a href="__UPLOAD_IMG__/{$config.backgroundImg}" target="_blank">
+                            <img src="__UPLOAD_IMG__/{$config.backgroundImg}" class="img-view"/>
+                        </a>
+                    </if>
+                </td>
+                <td>
+                    <span class="input-msg">最佳大小1366px*800px</span>
+                    &nbsp;&nbsp;
+                    <if condition="$config['backgroundImg']">
+                    <a href="?keyword=backgroundImg&token={$token}" onclick="return confirm('您确定要删除吗?')" class="layui-btn layui-btn-small" >删除背景</a>
+                    </if>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td align="right">网站默认缩略图：</td>
+                <td>
+                    <a class="layui-btn layui-btn-small upload-img" id="defaultThumb">选择图片</a>
+                </td>
+                <td id="defaultThumb-td">
+                    <if condition="$config['defaultThumb']">
+                        <a href="__UPLOAD_IMG__/{$config.defaultThumb}" target="_blank">
+                            <img src="__UPLOAD_IMG__/{$config.defaultThumb}" class="img-view"/>
+                        </a>
+                    </if>
+                </td>
+                <td>
+                    <span class="input-msg">最佳大小210px*150px</span>
+                </td>
+            </tr>
+-->
+            <form action="{:U('System/imgHandle')}" method="post">
+            <foreach name="data" item="value" >
+                <tr>
+                    <td></td>
+                    <td colspan="2" ><b>{$value.text}</b></td>
+                </tr>
+                <tr>
+                    <td align="right" width="30%">图片</td>
+                    <td width="10%">
+                        <a class="layui-btn layui-btn-small" id="{$value.name}">选择图片</a>
+                        <input type="hidden" name="{$value.name}_img" value="{$value.img}" id="{$value.name}-img"/>
+                    </td>
+                    <td id="{$value.name}-td">
+                        <if condition="$value['img']">
+                            <a href="{$value.img}" target="_blank">
+                                <img src="__UPLOAD_IMG__/{$value.img}" class="img-view"/>
+                            </a>
+                        </if>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td align="right">链接</td>
+                    <td colspan="2">
+                        <input type="text" value="{$value.link}" name="{$value.name}_link" class="web-input  lg-input" style="width: 70%;" />
+                    </td>
+                </tr>
+            </foreach>
+                <tr>
+                    <td></td>
+                    <td colspan="2">
+                        <input type="hidden" name="pid" value="{$pid}"/>
+                        <input type="hidden" name="mid" value="{$mid}"/>
+                        <button type="submit" class="layui-btn">&nbsp;&nbsp;确&nbsp;&nbsp;定&nbsp;&nbsp;</button>
+                        <input type="hidden" name="token" value="{$token}"/>
+                        <button type="reset" class="layui-btn layui-btn-normal">&nbsp;&nbsp;重&nbsp;&nbsp;置&nbsp;&nbsp;</button>
+                    </td>
+                </tr>
+            </form>
+            </tbody>
+        </table>
+
+    <!--
+
+    <form action="{:U('System/syslogin')}" method="post">
+        <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+            <tbody>
+            <tr>
+                <td align="right" width="30%">自学考试招生简介链接：</td>
+                <td>
+                    <input type="text" value="{$config.self-test-intro}" name="self-test-intro" class="web-input  lg-input"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" width="30%">成人教育招生简介链接：</td>
+                <td>
+                    <input type="text" value="{$config.aduit-test-intro}" name="aduit-test-intro" class="web-input  lg-input"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" width="30%">系统登陆：</td>
+                <td>
+                    <input type="text" value="{$config.syslogin-manage}" name="syslogin-manage" class="web-input  lg-input"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td >
+                    <input type="hidden" name="pid" value="{$pid}"/>
+                    <input type="hidden" name="mid" value="{$mid}"/>
+                    <button type="submit" class="layui-btn">&nbsp;&nbsp;确&nbsp;&nbsp;定&nbsp;&nbsp;</button>
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <button type="reset" class="layui-btn layui-btn-normal">&nbsp;&nbsp;重&nbsp;&nbsp;置&nbsp;&nbsp;</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+            -->
+
+</div>
+        <include file="Public/admin_footer"/>
+<script type="text/javascript" src="__LIB__/uploadImg.js"></script>
+<script type="text/javascript">
+
+    $(function() {
+        var param     = "apply,self_test,aduit_test,system_login,self_test_intro,aduit_test_intro";
+        var uploadUrl = "{:U('System/uploadLinkImg')}";
+
+        //初始化图片上传
+        uplogImg(param,uploadUrl);
+
+    });
+
+
+    /**
+     * 图片上传回调函数
+     * @param data
+     * @returns {boolean}
+     */
+    function uploadCallBack(data){
+        data = eval('(' + data + ')');
+
+        if(data == null && data=='' && data==undefined){
+            alert('上传失败');
+            return false;
+        }
+        if(data.errcode !=0){
+            alert('上传失败:'+data.msg);
+            return false;
+        }
+        var imgUrl = data.path+data.url;
+        var img = '<a href="'+imgUrl+'" target="_blank"><img src="'+imgUrl+'" class="img-view"/></a>';
+        $("#"+data.keyword+"-td").html(img);
+        $("#"+data.keyword+"-img").val(data.url);
+    }
+</script>

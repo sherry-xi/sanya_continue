@@ -1,0 +1,58 @@
+<include file="Public/channel_header"/>
+<style type="text/css">
+        .contact-p a:hover{color:#fff;}
+</style>
+<!-- 频道页-录取查询 -->
+<div class="web-channel-content">
+
+    <if condition="$config['contact']">
+        <img src="__UPLOAD_IMG__/{$config.contact}" style="width: 100%;height:160px;"/>
+    </if>
+
+    <if condition="$config['qqChat']">
+        <p class="contact-p">
+            <a href="{$config.qqChat}" target="_blank" title="点击客服">
+                <img src="__IMG__/qq.png" class="contact-icon" />
+            </a>
+
+            <a href="{$config.qqChat}"  target="_blank" class="qq-btn" title="点击客服">客服QQ1</a>
+        </p>
+    </if>
+    <if condition="$config['qqChat2']">
+        <p class="contact-p">
+            <a href="{$config.qqChat2}" target="_blank" title="点击客服">
+                <img src="__IMG__/qq.png" class="contact-icon" />
+            </a>
+
+            <a href="{$config.qqChat2}"  target="_blank" class="qq-btn" title="点击客服">客服QQ2</a>
+        </p>
+    </if>
+    <if condition="$config['weixinQR']">
+        <p  class="contact-p">
+            <img src="__IMG__/weixin.png" class="contact-icon"/>
+            <img src="__UPLOAD_IMG__/{$config.weixinQR}" style="width: 170px;height: 150px;border:1px solid #ccc;margin-left:20px;"/>
+        </p>
+    </if>
+
+    <p align="center">
+        {$config.right_msg}
+    </p>
+    <div style="border-top: 1px dotted #ccc;margin-top:50px;"></div>
+</div>
+<include file="Public/channel_footer"/>
+<script type="text/javascript">
+        var checkCode = "{:U('checkCode')}";
+    $(function(){
+
+
+        $(".codeChange").click(function(){
+
+            var url = "{:U('verify')}"+"?uid="+Math.random();
+            $("#codeimg").attr('src',url);
+
+        });
+    });
+
+</script>
+<script type="text/javascript" src="__LIB__/nice-validator-1.1.1/jquery.validator.min.js?local=zh-CN"></script>
+<script type="text/javascript" src="__JS__/validate.js"></script>

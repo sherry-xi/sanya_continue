@@ -1,0 +1,242 @@
+<include file="Public/header"/>
+<script type="text/javascript">
+    var indexSlideTime  = "{$config.indexSlideTime}";   //幻灯片切换速度
+    var indexScrollTime = "{$config.indexScrollTime}";  //滚动栏切速度
+</script>
+<!-- 网站主体 -->
+<div class="web-main">
+
+    <div class="web-main-top">
+        <!--新版幻灯片-->
+        <div id="wrapper-img">
+
+            <!-- Slideshow 4 -->
+            <div class="callbacks_container">
+                <ul class="rslides" id="slider4">
+
+                    <foreach name="slide" item="vo" key="k" >
+                        <li style="text-align: center">
+                            <img src="__UPLOAD_IMG__/{$vo.img}" alt="" class="rslides-img">
+                            <p class="caption"><a href="{$vo.link}" target="_blank">{$k+1}/{$slide|count} {$vo.title}</a></p>
+                        </li>
+                    </foreach>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 通知公告 -->
+        <div class="web-news" style="height:350px;padding-right:10px;width: 500px;margin: 0px;float: right;margin-left: 10px;margin-top: 0px;">
+            <div class="web-channel-title">
+                <span class="web-channel-text ">{$informChannel.name}</span>
+                <span class="web-channel-text-tag">NOTICE</span>
+                <a href="{$informChannel.link}" class="web-channel-more"  target="_blank"><img src="__PUBLIC__/image/right_arrow.jpg"/></a>
+            </div>
+            <div class="web-news-title-bg"></div>
+            <ul class="web-channel-news">
+                <foreach name="inform" item="v" key="k">
+                    <li>
+                        <a target="_blank"
+                           href="{:U('article',array('id'=>$v['id'],'mid'=>$v['cid'],'pid'=>$informChannel['parent_id']))}">
+                            <script type="text/javascript">
+                                mySubstring("{$v.title}",21);
+                            </script>
+                        </a>
+                        <if condition="$k == 0">
+                            <img src="__PUBLIC__/image/new1.png" style="margin-left: 5px;"/>
+                        </if>
+                        <samp class="new-time">{$v.create_time|substr=###,0,11}</samp>
+                    </li>
+                </foreach>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="web-channel">
+
+        <div class="web-tool">
+            <foreach name="links" item="value" key="k">
+                <div class="web-tool-list" data-url=""
+                    style="
+                    <if condition='$k gt 2'> margin-top: 10px; </if>
+                    <if condition='($k eq 2) or ($k eq 5)'> margin-right: 0px; </if>"
+                >
+                    <img src="__UPLOAD_IMG__/{$value.img}" style="width: 100%;height: 95px;">
+                    <div class="web-tool-text" >
+                        <a target="_blank" href="{$value.link}">{$value.text}</a>
+                    </div>
+                </div>
+            </foreach>
+            <!--
+            <div class="web-tool-list" data-url="{$sysLinks.join}" style="background: url('__UPLOAD_IMG__/{$config.applyBanner}')">
+                <div class="web-tool-text" >
+                    <a target="_blank" href="{$sysLinks.join}">网上报名</a>
+                </div>
+            </div>
+            <div class="web-tool-list">
+                <div class="web-tool-text">
+                    <li ><a  target="_blank"  href="{$sysLinks.navi.slef}">自学考试</a></li>
+                </div>
+            </div>
+            <div class="web-tool-list" style="margin-right: 0px;">
+                <div class="web-tool-text">
+                    <li ><a target="_blank"  href="{$sysLinks.navi.aduit}">成人教育</a></li>
+                </div>
+            </div>
+
+            <div class="web-tool-list" style="margin-top: 10px;">
+                <div class="web-tool-text">
+                    <a target="_blank" href="{$sysLinks.manage}">系统登陆</a>
+
+                </div>
+            </div>
+            <div class="web-tool-list"  style="margin-top: 10px;">
+                <div class="web-tool-text">
+                    <li  ><a target="_blank"  href="{$sysLinks.self-test-intro}">自学考试招生简章</a></li>
+                </div>
+            </div>
+            <div class="web-tool-list"  style="margin-top: 10px;margin-right: 0px;">
+                <div class="web-tool-text">
+                    <a href="{$sysLinks.aduit-test-intro}">成人考试招生简章</a>
+                </div>
+            </div>
+            -->
+        </div>
+
+        <!-- 2020.10.28 关闭
+        <div  class="sys-login">
+            <div class="sys-login-list">
+                <div class="sys-login-block" style="background: #af5b13">
+                    <a target="_blank" href="{$sysLinks.join}">网上报名</a>
+                </div>
+                <div  class="sys-login-block" style="background: #772b0e;">
+                    <a target="_blank" href="{$sysLinks.manage}">系统登陆</a>
+                </div>
+            </div>
+            <div class="sys-login-list" style="margin-left: 5px;">
+                <div class="sys-login-block">
+                    <img src="__UPLOAD_IMG__/{$config.applyBanner}" style="width: 100%;height:100%;"/>
+                </div>
+                <div class="sys-login-block" style="background: #E5D4BA;">
+
+                    <li ><a  target="_blank"  href="{$sysLinks.navi.slef}">自学考试</a></li>
+                    <li  ><a target="_blank"  href="{$sysLinks.self-test-intro}">招生简介</a></li>
+                </div>
+            </div>
+            <div class="sys-login-list">
+                <div class="sys-login-block">
+                    <img src="__UPLOAD_IMG__/{$config.applyQuery}" style="width: 100%;height:100%;"/>
+                </div>
+                <div class="sys-login-block"  style="background: #E5D4BA;">
+                    <li ><a target="_blank"  href="{$sysLinks.navi.aduit}">成人教育</a></li>
+                    <li  ><a target="_blank"  href="{$sysLinks.aduit-test-intro}">招生简介</a></li>
+                </div>
+            </div>
+        </div>
+        -->
+        <!--
+        <div class="sys-login-bak" style="display: none;">
+
+
+            <ul style="border: 1px solid #000;">
+                <div style="height: 50%;border: 0px solid #000;">
+                    <li class="sys-login-item sys-login-tag" style="margin-top:0px;"><a target="_blank" href="{$sysLinks.join}">网上报名</a></li>
+                </div>
+                <div style="height: 50%;border: 1px solid #000;width: 100%;">
+                    <li class="sys-login-item  sys-login-tag" style="margin-top: 0px;"><a target="_blank" href="/index.php/Home/Apply/testApply">系统登陆</a></li>
+                </div>
+
+
+            </ul>
+            <ul>
+                <div style="height: 50%;border: 1px solid #000;"></div>
+                <div style="height: 50%;border: 1px solid #000;">
+                    <li class="sys-login-item sys-login-tag" style="border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;"><a  target="_blank"  href="{$sysLinks.navi.slef}">自学考试</a></li>
+                    <li class="sys-login-item  sys-login-tag" style="border-top-right-radius: 0px;border-top-left-radius: 0px;" ><a target="_blank"  href="">招生简介</a></li>
+                </div>
+            </ul>
+            <ul style="margin: 0px;float: right">
+                <div style="height: 50%;border: 1px solid #000;"></div>
+                <div style="height: 50%;border: 1px solid #000;">
+                    <li class="sys-login-item  sys-login-tag" style="border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;"><a target="_blank"  href="{$sysLinks.navi.aduit}">成人教育</a></li>
+                    <li class="sys-login-item  sys-login-tag" style="border-top-right-radius: 0px;border-top-left-radius: 0px;" >
+                        <a target="_blank"  href="">招生简介</a></li>
+                </div>
+            </ul>
+            <div class="clear"></div>
+        </div>
+
+        <div class="sys-login">
+                <ul>
+                    <li class="sys-login-title">
+                        <img src="__PUBLIC__/image/login_icon.png" />
+                        <span>系统登陆</span>
+                    </li>
+                    <li class="sys-login-item sys-login-tag"><a target="_blank" href="{$sysLinks.login.self}">自考学习平台</a></li>
+                    <li class="sys-login-item  sys-login-tag"><a target="_blank" href="{$sysLinks.login.aduit}">成教学习平台</a></li>
+                    <li class="sys-login-item  sys-login-tag"><a  target="_blank" href="{$sysLinks.login.education}">教育培训平台</a></li>
+                </ul>
+                <ul>
+                    <li class="sys-login-title" >
+                        <img src="__PUBLIC__/image/join.png" />
+                        <span>招生导航</span>
+                    </li>
+                    <li class="sys-login-item sys-login-tag" ><a  target="_blank"  href="{$sysLinks.navi.slef}">自学考试</a></li>
+                    <li class="sys-login-item  sys-login-tag" ><a target="_blank"  href="{$sysLinks.navi.aduit}">成人教育</a></li>
+                    <li class="sys-login-item   sys-login-tag"><a target="_blank"  href="{$sysLinks.navi.education}">教育培训</a></li>
+                </ul>
+            <ul style="margin: 0px;float: right">
+                <li class="sys-login-title" >
+                    <i class="layui-icon" >&#xe613;</i>
+                    <span>助学天地</span>
+                </li>
+                <li class="sys-login-item  sys-login-tag"  >
+                    <a  target="_blank"  href="{$sysLinks.join}">网上预报名</a></li>
+                <li class="sys-login-item  sys-login-tag" >
+                    <a target="_blank"  href="{$sysLinks.teacher}">教务教学</a></li>
+                <li class="sys-login-item   sys-login-tag">
+                    <a target="_blank"  href="{$sysLinks.manage}">管理系统登录</a></li>
+            </ul>
+                <div class="self-join  sys-login-tag" style="display: none">
+                    <div style="text-align: center;margin-top: 45px;">
+                    <p ><i class="layui-icon" >&#xe613;</i></p>
+                    <p ><a target="_blank"  href="{$sysLinks.join}">&nbsp; &nbsp;网上预报名&rarr;</a></p>
+                    </div>
+                </div>
+            <div class="clear"></div>
+        </div>
+        -->
+        <!-- 学院要闻 -->
+        <div class="web-news"  style="height:253px;padding-right:10px;width: 500px;float: right;border-bottom: 0px dotted #000;margin: 0px;">
+            <div class="web-channel-title">
+                <span class="web-channel-text">{$newsChannel.name}</span>
+                <span class="web-channel-text-tag">NEWS</span>
+                <a href="{$newsChannel.link}"  target="_blank" class="web-channel-more"><img src="__PUBLIC__/image/right_arrow.jpg"/> </a>
+            </div>
+            <div class="web-news-title-bg"></div>
+            <ul class="web-channel-news">
+                <foreach name="news" item="v" key="k">
+                    <li>
+                        <a target="_blank"
+                           href="{:U('article',array('id'=>$v['id'],'mid'=>$v['cid'],'pid'=>$newsChannel['parent_id ']))}">
+                            <script type="text/javascript">
+                                mySubstring("{$v.title}",21);
+                            </script>
+                        </a>
+                        <if condition="$k == 0">
+                            <img src="__PUBLIC__/image/new1.png" style="margin-left: 5px;"/>
+                        </if>
+                        <samp class="new-time">{$v.create_time|substr=###,0,11}</samp>
+                    </li>
+                </foreach>
+            </ul>
+        </div >
+        <div class="clear"></div>
+
+    </div>
+
+
+</div>
+<div class="clear"></div>
+<include file="Public/footer"/>
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>错误提示</title>
+    <link href="/Public/error/css/bootstrap.css" rel="stylesheet">
+    <link href="/Public/error/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="/Public/error/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+
+    <div class="row pad-top text-center">
+        <div class="col-md-6 col-md-offset-3 text-center">
+            <h1>Duang,页面出小差了! </h1>
+            <h3>【页面不存在或者服务器繁忙】</h3>
+            <span id="error-link"></span>
+        </div>
+    </div>
+
+    <div style="display: none;">
+        <?php
+        echo "<h3>错误信息</h3>";
+        echo "<p>文件：".$e['file']." 行数：".$e['line']."行</p>";
+        echo "<p>错误描述：".$e['message']."</p>";
+        echo "<p>追踪日志：".$e['trace']."</p>";
+        ?>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-md-8 col-md-offset-2">
+           <a href="http://www.hysanya.com" class="btn btn-primary">&lt;&lt;返回首页</a>
+        </div>
+    </div>
+</div>
+
+<script src="/Public/error/js/jquery-1.10.2.js"></script>
+<script src="/Public/error/js/bootstrap.js"></script>
+<script src="/Public/error/js/countUp.js"></script>
+<script src="/Public/error/js/custom.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+
+<include file="Public/channel_header"/>
+
+<!-- 频道页-文章列表 -->
+<div class="web-channel-content">
+    <if condition="$article">
+
+        <table class="article" cellspacing="0" cellpadding="0">
+            <tr>
+                <td class="article-title"><h1>{$article.title}</h1></td>
+            </tr>
+            <tr>
+                <td class="article-msg">
+                    <span class="article-time">{$article.create_time}</span>
+                    <span class="article-edit">作者：{$article.author}</span>
+                </td>
+            </tr>
+            <tr>
+                <td id="content-td" style="max-width:800px;overflow-x:auto">
+				
+					{$article.content}
+					<!--
+                    <iframe class="article-iframe" src=""></iframe>
+					-->
+					
+                </td>
+            </tr>
+
+            <tr <if condition="$isSingle"> style='display:none;' </if> >
+                <td class="article-next">
+                    <p>上一篇：
+                        <if condition="$articlePre">
+                            <a href="{:U('article',array('mid'=>$mid,'pid'=>$pid,'id'=>$articlePre['id']))}">{$articlePre.title}</a>
+                            <else/>
+                            没有了
+                        </if>
+                    </p>
+                    <p>下一篇：
+                        <if condition="$articleNext">
+                            <a href="{:U('article',array('mid'=>$mid,'pid'=>$pid,'id'=>$articleNext['id']))}">{$articleNext.title}</a>
+                            <else/>
+                            没有了
+                        </if>
+                    </p>
+                </td>
+            </tr>
+        </table>
+
+        <else/>
+        <h2 style="font-size: 30px;margin-top:100px;text-align: center;color:#666">亲~~页面不存在~_~</h2>
+
+    </if>
+
+</div>
+<include file="Public/channel_footer"/>
+<script type="text/javascript">
+	/*
+	var url = "{:U('article2',array('pid'=>$pid,'mid'=>$mid,'id'=>$id,'type'=>1))}";
+
+	$(function(){
+		console.log("主窗口加载完毕");
+		$(".article-iframe").attr('src',url);
+	});
+    function setHeight(height){
+		console.log(height);
+        $(".article-iframe").height(height);
+    }*/
+</script>

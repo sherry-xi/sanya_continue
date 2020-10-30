@@ -1,0 +1,107 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <button class="layui-btn layui-btn-small add-apartment"  style="margin-top: 10px;" data-id="">添&nbsp;&nbsp;加</button>
+    <!-- 搜索栏 -->
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th width="80">序号</th>
+            <th width="200">名称</th>
+            <th>专业</th>
+            <th style="text-align: center;width: 60px;">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <foreach name="apartment" item="v" key="k">
+            <tr>
+                <td width="50px">{$k+1+$page->listRows*($page->nowPage-1)}</td>
+                <td>{$v.name}</td>
+                <td>
+                    <foreach name="v.major" item="major">
+                        {$major.name}&nbsp;|&nbsp;
+                    </foreach>
+                </td>
+                <td>
+                    <i title="编辑" class="layui-icon add-apartment"  data-id="{$v.id}" data-value="{$v.name}" style="cursor: pointer">&#xe642;</i>
+                    <i title="删除" class="layui-icon delete-apartment" data-id="{$v.id}"  style="cursor: pointer">&#xe640;</i>
+                    <a href="{:U('major',['id'=>$v['id'],'pid'=>$pid,'mid'=>$mid])}" title="管理专业">
+                    <i class="layui-icon">&#xe630;</i>
+                    </a>
+                </td>
+            </tr>
+        </foreach>
+        <tr>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="aprtment-add" style="display: none;">
+    <div style="padding: 20px;">
+    名称：<input type="text" name="name" id="name" class="web-input" autocomplete="no"/>
+    </div>
+</div>
+<include file="Public/admin_footer"/>
+<script src="__LIB__/layui-v1.0.0.9/layui.js"></script>
+
+<script type="text/javascript">
+
+    $(function(){
+
+        //删除报名层次
+        $(".delete-apartment").click(function(){
+
+            if(!confirm('您确定要删除吗?')){
+                return false;
+            }
+            var obj = $(this);
+            $.get("{:U('delete')}",{id:obj.attr("data-id")},function (data) {
+                history.go(0);
+            })
+        });
+        //添加报名
+        $(".add-apartment").click(function(){
+            var obj      = $(this);
+            var id       = obj.attr("data-id");
+            var title    = (id?"修改":"添加")+"报名层次";
+            var nameObj  = $("#name");
+            var url      = id?"{:U('editApartment')}":"{:U('addApartment')}"
+            if(id){
+                nameObj.val(obj.attr("data-value"));
+            }else{
+                nameObj.val('');
+            }
+            layui.use("layer",function(){
+
+                layer.open({
+                    title:title,
+                    type: 1,
+                    icon: 2,
+                    content: $('.aprtment-add'),
+                    btn:['确定','取消'],
+                    btn1:function(index, layero){
+                        var name = $.trim(nameObj.val());
+                        if(name == ''){
+                            alert("请输入名称");
+                            $("#name").focus();
+                            return false;
+                        }
+                        $.get(url,{name:name,id:id},function(data){
+                            if(data !== ''){
+                                alert(data);
+                                nameObj.focus();
+                            }else{
+                                layer.close(index)
+                                history.go(0);
+                            }
+                            nameObj.val('');
+                        });
+                    }
+                });
+            });
+        });
+
+    });
+</script>

@@ -1,0 +1,75 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <!-- 搜索栏 -->
+    <div class="main-search">
+        <a href="{:U('IndexManage/add',array('mid'=>$mid,'pid'=>$pid,'type'=>$type))}" class="layui-btn layui-btn-small" style="margin-top:5px;float:right;margin-right:20px">添加</a>
+    </div>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>标题</th>
+            <th>链接</th>
+            <th>图片</th>
+            <th>状态</th>
+            <if condition="$type eq 2">
+                <th>显示位置</th>
+            </if>
+            <th>排序</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            <foreach name="data" item="v">
+                <tr>
+                    <td>{$v.id}</td>
+                    <td>
+                        <script type="text/javascript">
+                            mySubstring("{$v.title}",15);
+                        </script>
+                    </td>
+                    <td>
+                        <a href="{$v.link}" target="_blank">
+                            <script type="text/javascript">
+                                mySubstring('{$v.link}',25);
+                            </script>
+                        </a>
+                    </td>
+                    <td>
+                        <if condition="$v['img']">
+                            <img src="__UPLOAD_IMG__/{$v.img}" style="max-height:50px;max-width:100px;border:1px solid #ccc;"/>
+                        </if>
+                    </td>
+                    <td>
+                        <if condition="$v['status'] eq 1">
+                            <span class="red">停用</span>
+                        <else/>
+                            <span class="green">启用</span>
+                        </if>
+                    </td>
+                    <if condition="$type eq 2">
+                        <td>{$v.channel}</td>
+                    </if>
+                    <td>{$v.sort}</td>
+                    <td>
+                        <div class="layui-btn-group">
+                            <a href="{:U('IndexManage/add',array('id'=>$v['id'],'pid'=>$pid,'mid'=>$mid,'type'=>$type))}" title="编辑/查看" class="layui-btn layui-btn-primary layui-btn-small">
+                                <i class="layui-icon">&#xe642;</i>
+                            </a>
+                            <a onclick="return confirm('您确定要删除吗?')"
+                               href="{:U('IndexManage/del',array('id'=>$v['id'],'token'=>$token,'pid'=>$pid,'mid'=>$mid))}"
+                               class="layui-btn layui-btn-primary layui-btn-small">
+                                <i title="删除" class="layui-icon">&#xe640;</i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </foreach>
+        <tr>
+            <td <if condition="$type gt 1">colspan="8"<else/>colspan="7"</if> class="page-show">{$pageShow}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<include file="Public/admin_footer"/>

@@ -1,0 +1,29 @@
+<include file="Public/channel_header"/>
+<link rel="stylesheet" href="__LIB__/lightbox2/dist/css/lightbox.min.css">
+
+        <!-- 频道页-文章列表 -->
+        <div class="web-channel-content">
+
+            <ul class="img-list">
+                <foreach name="images" item="v" >
+                <li>
+                    <div class="image-item">
+                        <a href="__UPLOAD_IMG__/{$v.url}"  data-lightbox="example-set" data-title="{$v.remark}">
+                            <img  src="__UPLOAD_IMG__/{$v.url}" />
+                        </a>
+                    </div>
+                    <div class="image-text">
+                        <script type="text/javascript">
+                            mySubstring("{$v.remark}",25);
+                        </script>
+                    </div>
+                </li>
+                </foreach>
+                <div class="clear"></div>
+            </ul>
+            <div class="page-show">
+                <div>{$page}</div>
+            </div>
+        </div>
+<include file="Public/channel_footer"/>
+<script  type="text/javascript"  src="__LIB__/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>

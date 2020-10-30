@@ -1,0 +1,69 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <!-- 搜索栏 -->
+    <div class="main-search" >
+        <a href="{:U('upload',$menuId)}" class="layui-btn layui-btn-small" style="margin-top:5px;">上传资料</a>
+
+        <form action="" method="get"style="display: none;">
+            <select name="className" style="width:120px;" class="web-input web-select ">
+                <option value="">所有分类</option>
+                <foreach name="class" item="v">{$cid}
+                    <option value="{$v}"  <if condition="$get['className'] eq $v"> selected</if>>{$v}</option>
+                </foreach>
+            </select>
+
+            <input type="text" name="keyword" style="width: 230px;" placeholder="文件名" value="{$get.keyword}" class="web-input"/>
+            <button class="layui-btn layui-btn-small"> 搜  索 </button>
+
+        </form>
+
+    </div>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>文件名</th>
+            <th>上传者</th>
+            <th>所属分类</th>
+            <th>文件大小</th>
+            <th>上传日期</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="files" item="v" key="k">
+            <tr>
+                <td width="50px">{$k+1+$page->listRows*($page->nowPage-1)}</td>
+                <td>{$v.name}</td>
+                <td>{$v.user}</td>
+                <td>{$v.channel}</td>
+                <td>{$v.size}</td>
+                <td>{$v.created_at|substr=###,0,16}</td>
+                <td>
+                    <a href="{$rootPath}{$v.path}"  class="layui-btn layui-btn-primary layui-btn-small">
+                        <i title="下载" class="layui-icon">&#xe601;</i>
+                    </a>
+                    <a onclick="return confirm('您确定要删除吗?')"
+                       href="{:U('delete',array('id'=>$v['id']))}" class="layui-btn layui-btn-primary layui-btn-small">
+                        <i title="删除" class="layui-icon">&#xe640;</i>
+                    </a>
+                </td>
+            </tr>
+        </foreach>
+        <tr>
+        </tr>
+        <tr>
+            <td colspan="10" class="page-show">
+                {$pageShow}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<include file="Public/admin_footer"/>
+<script type="text/javascript">
+    $(function(){
+
+    });
+</script>

@@ -1,0 +1,31 @@
+</div>
+<div class="clear"></div>
+</div>
+
+<include file="Public/footer"/>
+<script type="text/javascript">
+        var hideMenuUrl = "{:U('hideMenu')}";
+    $(function(){
+        heightEdit();
+        //切换左侧菜单
+        $(".menu-title").click(function(){
+            var id = $(this).attr("data-id");
+            var className = '.son-'+id;
+            var display  = $(className).eq(0).css('display');
+            var hidden = 1;
+            if(display == 'none'){
+                $(className).show();
+                hidden = 0;
+            }else{
+                $(className).hide();
+                hidden = 1;
+            }
+            $.get(hideMenuUrl,{pid:id,hidden:hidden},function(data){},'json');
+            return false;
+        });
+    });
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+</script>
+

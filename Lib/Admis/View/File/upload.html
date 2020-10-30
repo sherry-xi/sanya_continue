@@ -1,0 +1,60 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <form action="{:U('uploadHandle')}" method="post"  enctype="multipart/form-data" >
+        <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+            <tbody>
+            <tr>
+                <td align="right" width="30%">选择文件</td>
+                <td>
+                    <input type="file" value="" name="file" id="file"  required/><span style="font-size: 13px; margin-left: 10px;color: red;">(最大50M)</span>
+                </td>
+            </tr>
+            <if condition="$channel">
+                <tr>
+                    <td align="right" width="30%">资料所属分类</td>
+                    <td>
+                        <select name="channelId" id="channelId" class="web-input web-select " required>
+                            <option value="">所有分类</option>
+                            <foreach name="channel" item="v">{$cid}
+                                <option value="{$v.id}">{$v.name}</option>
+                            </foreach>
+                        </select>
+                    </td>
+                </tr>
+                <else/>
+                <input type="hidden" name="channelId" value="{$fileChannelId}" />
+            </if>
+
+            <tr>
+                <td></td>
+                <td >
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="id" value="{$article.id}"/>
+                    <input type="hidden" name="pid" value="{$pid}"/>
+                    <input type="hidden" name="mid" value="{$mid}"/>
+                    <button type="submit" id="submit-file" class="layui-btn">确定上传</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<include file="Public/admin_footer"/>
+
+<script type="text/javascript">
+    $(function(){
+        $("#submit-file").click(function(){
+            if($("#file").val() == ''){
+                alert("请选择文件");
+                return false;
+            }
+            if($("#channelId").val() == ''){
+                alert("请选择分类");
+                return false;
+            }
+        });
+    });
+</script>

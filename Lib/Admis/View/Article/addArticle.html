@@ -1,0 +1,221 @@
+<include file="Public/admin_header"/>
+<link rel="stylesheet" href="__LIB__/color/jquery.minicolors.css">
+<!-- 主体内容 -->
+<div class="main-conent">
+    <form action="{:U('Article/addArticleHandle')}" id="addArticleForm" method="post" enctype="multipart/form-data">
+        <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+            <tbody>
+            <tr>
+                <td align="right" width="20%">文章标题：</td>
+                <td>
+                    <input type="text" value="{$article.title}" placeholder=" 长度2~4字符内"  class="web-input" name="title" id="title"  style="width: 300px"/>
+                    &nbsp;
+                    <input type="hidden"  name="title_bold" value="1" id="title_bold" <if condition="$article['title_bold'] ">checked</if> />
+
+                    <input type="hidden"  id="color" name="title_color" value="#333">
+                    <span class="red">*</span>
+                </td>
+            </tr>
+            <tr style="display: none">
+                <td align="right">关键字：</td>
+                <td>
+                    <input type="text" value="{$article.keyword}" name="keyword" placeholder="如:招生,就业,入学" id="keyword" class="web-input" style="width: 300px"/>
+                    <span class="red">*</span>
+                    <span class="green">关键字2~20字符内,多个逗号隔开</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">显示作者：</td>
+                <td>
+                    <input type="text" value="{$article.author|default=$author}" name="author" placeholder="如:三亚海洋职业技术学院新闻部" id="author" class="web-input" style="width: 300px"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">显示创建日期：</td>
+                <td>
+                    <input type="text" value="{$article.show_time|default=$datetime}" name="show_time" id="show_time" class="web-input"
+                           style="width: 300px" readonly="readonly"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">所属导航：</td>
+                <td>
+                    <select name="cid" id="cid" style="width: 307px;height:35px;" class="web-input">
+                        <option value="">选择导航</option>
+
+                        <foreach name="channel" item="ch">
+                            <option value="parent_{$ch.id}" <if condition="$ch['id'] eq $article['parent_cid']">selected="selected"</if> style="font-weight: bold;color: #0f4a48">{$ch.name}</option>
+                            <foreach name="ch.son" item="son">
+                                <option value="{$son.id}" <if condition="$son['id'] eq $article['cid']">selected="selected"</if> >&nbsp;&nbsp;&nbsp;{$son.name}</option>
+                            </foreach>
+                        </foreach>
+                    </select>
+                    <span class="red">*</span>
+
+                </td>
+            </tr>
+            <!--
+            <tr>
+                <td align="right">封面缩略图：</td>
+                <td>
+                    <div style="width: 80px;float: left;">
+                    <a class="layui-btn layui-btn-small" id="img">选择图片</a>
+                    </div>
+                    <div class="green" style="float: left;height:30px;line-height: 30px">最佳大小530px*340px</div>
+                    <input type="text" id="thumbMsg"  style="width:1px;border:0px;height:1px;"/>
+                    <input type="hidden" name="thumb" id="thumb" value="{$article.thumb}" />
+                    <div style="float: left;width: 210px;" class="thumb">
+                        <if condition="$article['thumb']">
+                            <a href="__UPLOAD_IMG__/{$article.thumb}" target="_blank">
+                                <img src="__UPLOAD_IMG__/{$article.thumb}" class="img-view">
+                            </a>
+                        </if>
+                    </div>
+
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td align="right" >开放浏览：</td>
+                <td>
+                    <input type="radio" name="status" value="0" id="status0" <if condition="$article['status'] neq 1">checked='checked'</if>>
+                    <label for="status0">开放</label>&nbsp;
+                    <input type="radio" name="status" value="1" id="status1" <if condition="$article['status'] eq 1">checked='checked'</if>>
+                    <label for="status1">不开放</label>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" >额外设置：</td>
+                <td>
+                    <input type="checkbox" name="top" value="1" id="top" <if condition="$article['top'] eq 1">checked='checked'</if>>
+                    <label for="top">置顶</label>&nbsp;
+                    <!--
+                    <input type="checkbox" name="slide" class="extra" value="1" id="slide" <if condition="$article['slide'] eq 1">checked='checked'</if>>
+                    <label for="slide">幻灯片</label>&nbsp;
+
+                    <input type="checkbox" name="scroll" class="extra"  value="1" id="scroll" <if condition="$article['scroll'] eq 1">checked='checked'</if>>
+                    <label for="scroll">滚动栏</label>&nbsp;
+                    -->
+                </td>
+            </tr>
+            <!--
+            <if condition="$haveCheck">
+                <tr>
+                    <td align="right"><b class="green">文章审核：</b></td>
+                    <td>
+                        <input type="radio" name="audit" value="0" id="audit0" <if condition="$article['audit'] eq 0">checked</if> >
+                        <label for="audit0">未审核</label>&nbsp;&nbsp;
+                        <input type="radio" name="audit" value="1" id="audit1" <if condition="$article['audit'] eq 1">checked</if>>
+                        <label for="audit1">审核通过</label>&nbsp;&nbsp;
+                        <input type="radio" name="audit" value="2" id="audit2" <if condition="$article['audit'] eq 2">checked</if>>
+                        <label for="audit2">审核不通过</label>&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </if>
+               -->
+            <tr>
+                <td align="right" style="vertical-align: top;width:20%;">文章内容：</td>
+                <td>
+                    <div style="width: 810px;">
+                        <textarea id="content" name="content"  style="height:500px;">{$article.content}</textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="id" value="{$article.id}"/>
+                    <input type="hidden" name="pid" value="{$pid}"/>
+                    <input type="hidden" name="mid" value="{$mid}"/>
+                    <input type="hidden" name="copy" value="{$copy}"/>
+                    <button  class="layui-btn" >&nbsp;&nbsp;确&nbsp;&nbsp;定&nbsp;&nbsp;</button>
+                    <a href="{:U('Article/index',$menuId)}" class="layui-btn layui-btn-normal">&nbsp;&nbsp;取&nbsp;&nbsp;消&nbsp;&nbsp;</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<include file="Public/admin_footer"/>
+<script type="text/javascript">
+    var uploadImgDocument = '__UPLOAD_IMG__';
+</script>
+<script type="text/javascript" src="__LIB__/uploadImg.js"></script>
+<script src="__LIB__/color/jquery.minicolors.js"></script>
+<script type="text/javascript" src="__LIB__/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__LIB__/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" src="__JS__/ueditorConfig.js"></script>
+<script type="text/javascript" src="__LIB__/My97DatePicker/WdatePicker.js"></script>
+
+<script>
+
+    $(function(){
+       $('.left').height('980');
+        //初始化图片上传
+        uplogImg('img',"{:U('uploadImg')}");
+        //颜色选择器
+        /*
+        $("#color").minicolors({
+                control: $(this).attr('data-control') || 'hue',
+                defaultValue: $(this).attr('data-defaultValue') || '',
+                inline: $(this).attr('data-inline') === 'true',
+                letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                opacity: $(this).attr('data-opacity'),
+                position: $(this).attr('data-position') || 'bottom left',
+                change: function(hex, opacity) {
+                    $("#title").css("color",hex);
+                    if( !hex ){
+                        log(1);
+                        return;
+                    }
+                    if( opacity ) {
+                        hex += ', ' + opacity;
+                    }
+                },
+
+        });
+
+        //设置标题颜色
+        $("#title").css("color",$("#color").val());
+*/
+        //选择日期
+        $("#show_time").click(function(){
+            selectDate(this);
+        });
+
+
+        //初始化编辑器
+        initEditor();
+
+    });
+
+
+    /**
+     * 图片上传回调函数
+     * @param data
+     * @returns {boolean}
+     */
+    function uploadCallBack(data){
+        data = eval('(' + data + ')');
+
+        if(data == null && data=='' && data==undefined){
+            alert('上传失败');
+            return false;
+        }
+        if(data.errcode !=0){
+            alert('上传失败:'+data.msg);
+            return false;
+        }
+        var img = '<a href="'+data.path+data.url+'" target="_blank"><img src="'+data.path+data.url+'" class="img-view"/></a>';
+        $(".thumb").html(img);
+        $("#thumb").val(data.url);
+        $("#thumbMsg").trigger("hidemsg");
+    }
+
+    function selectDate(dateInput){
+        WdatePicker({el:dateInput,dateFmt:'yyyy-MM-dd HH:mm'});
+        return false;
+    }
+</script>

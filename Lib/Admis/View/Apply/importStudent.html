@@ -1,0 +1,106 @@
+<include file="Public/admin_header"/>
+<!-- 主体内容 -->
+<div class="main-conent">
+    <form action="{:U('importExcel')}" method="post">
+    <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+        <tbody>
+        <tr>
+            <td></td>
+            <td  >
+                <h1 style="font-size:20px;color: #009688">导入招生信息</h1>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" width="30%">Excel模板下载：</td>
+            <td>
+                <a class="green" href="__PUBLIC__/document/tpl.xlsx">点击下载</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right">备注说明：</td>
+            <td><span class="green">文件必须是2007版以上的*.xlsx 格式,<b> 姓名/身份证/报名专业</b>不能为空 </span></td>
+        </tr>
+        <tr>
+            <td align="right" width="30%"></td>
+            <td>
+                <button  class="layui-btn layui-btn-small layui-btn-warm" id="selectExcel">选择文件</button>
+                <span class="red" id="msgNo">未选择文件</span>
+                &nbsp;&nbsp;<span class="green" id="msgOk"></span>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit" class="layui-btn" id="submit">确定导入</button>
+                <input type="hidden" name="token" value="{$token}"/>
+                <input type="hidden" name="file" id="file" value="" />
+                <input type="hidden" name="pid" value="22"/>
+                <input type="hidden" name="mid" value="23"/>
+                <a href="{:U('index',array('mid'=>$mid,'pid'=>$pid))}" class="layui-btn layui-btn-normal">&nbsp;&nbsp;返&nbsp;&nbsp;回&nbsp;&nbsp;</a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </form>
+
+   <form action="{:U('importExcel')}" method="post" enctype="multipart/form-data" target="uploadIframe" id="uploadForm" style="display: none;">
+        <input type="file" value="" name="excel" id="uploadExcel"/>;
+       <input type="hidden" name="token" value="{$token}"/>
+   </form>
+    <iframe  name="uploadIframe" style="display: none;"></iframe>;
+</div>
+<include file="Public/admin_footer"/>
+<script type="text/javascript">
+    $(function(){
+
+        $("#submit").click(function(){
+            if($("input[name=file]").val() == ''){
+                alert("请选择excel文件");
+                return false;
+            }
+        });
+
+        $("#selectExcel").click(function(){
+            $("#uploadExcel").click();
+            return false;
+
+        });
+        $("#uploadExcel").change(function(){
+            var  file = $(this).val();
+            if(file==''){
+                $("#msgOk").html('');
+                return false;
+            }
+            if(!/xlsx$/.test(file)){
+                alert("文件格式必须是**.xlsx");
+                $(this).val('');
+                $("#msgOk").html('');
+                $("#msgNo").html('未选择文件');
+                return false;
+            }
+            $("#uploadForm").submit();
+            return false;
+        });
+    });
+
+    function uploadCallBack(data){
+        $("#uploadExcel").val('');
+        data = eval('(' + data + ')');
+
+        if(data == null && data=='' && data==undefined){
+            alert('上传失败');
+            return false;
+        }
+        if(data.errcode !=0){
+            alert(data.msg);
+            return false;
+        }
+        $("#file").val(data.filename)
+        $("#msgOk").html("<b>已选择文件,并且检测到<i  class='red'>"+data.count+"</i> 人</b>");
+        $("#msgNo").html('');
+    }
+
+</script>
