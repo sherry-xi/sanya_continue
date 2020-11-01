@@ -16,7 +16,7 @@
 
                     <foreach name="slide" item="vo" key="k" >
                         <li style="text-align: center">
-                            <img src="__UPLOAD_IMG__/{$vo.img}" alt="" class="rslides-img">
+                            <img src="__UPLOAD_IMG__/{$vo.img}" alt="" class="rslides-img img-link" data-url="{$vo.link}">
                             <p class="caption"><a href="{$vo.link}" target="_blank">{$k+1}/{$slide|count} {$vo.title}</a></p>
                         </li>
                     </foreach>
@@ -61,7 +61,7 @@
                     <if condition='$k gt 2'> margin-top: 10px; </if>
                     <if condition='($k eq 2) or ($k eq 5)'> margin-right: 0px; </if>"
                 >
-                    <img src="__UPLOAD_IMG__/{$value.img}" style="width: 100%;height: 95px;">
+                    <img src="__UPLOAD_IMG__/{$value.img}" style="width: 100%;height: 95px;" class="img-link" data-url="{$value.link}">
                     <div class="web-tool-text" >
                         <a target="_blank" href="{$value.link}">{$value.text}</a>
                     </div>
