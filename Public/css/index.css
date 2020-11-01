@@ -16,7 +16,7 @@ body{background: #e5ebef;}
     margin-top: 2px;
     font-size:12px !important;letter-spacing: 1px;}
 
-
+.img-link{cursor: pointer;}
 .top-icon{border:1px solid #e0dada;height:20px;width:20px;float: left;
     margin-bottom:5px;border-right: 0px;cursor: pointer;}
 .top-input{height:20px;width:150px;float: left;

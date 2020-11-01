@@ -29,4 +29,8 @@ $(function(){
         var url = $(this).find("a").attr("href");
         location.href = url;
     });
+
+    $(".img-link").click(function(){
+        window.open($(this).attr("data-url"));
+    });
 });
