@@ -38,7 +38,7 @@ class ApplyNewController extends BaseController{
      * 删除
      */
     public function delete(){
-        M("apply")->where(['id'=>I('id')])->update(['status'=>1]);
+        M("apply")->where(['id'=>I('id')])->save(['status'=>1]);
         $this->success('删除成功');
     }
 
