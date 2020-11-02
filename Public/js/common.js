@@ -37,7 +37,7 @@ function mySubstring(str,maxLength,isReturn){
     var len     = str.length;
     var newStr  = str;
     if(len > maxLength){
-        newStr = str.substring(0,maxLength)+"...";
+        newStr = str.substring(0,maxLength);
     }
     if(isReturn==undefined){
         document.write(newStr);
