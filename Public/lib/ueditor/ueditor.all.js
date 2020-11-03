@@ -19719,6 +19719,9 @@ UE.plugins['video'] = function (){
                 start = me.selection.getStart(),
                 table = start && domUtils.findParentByTagName(start, ["table"], true);
 
+            if(value == 'center'){
+                table.setAttribute("style","margin:0px auto");
+            }
             if (table) {
                 table.setAttribute("align",value);
             }
