@@ -41,10 +41,11 @@
                                 mySubstring("{$v.title}",21);
                             </script>
                         </a>
-                        <if condition="$k == 0">
-                            <img src="__PUBLIC__/image/new1.png" style="margin-left: 5px;"/>
-                        </if>
                         <samp class="new-time">{$v.create_time|substr=###,0,11}</samp>
+                        <if condition="$k == 0">
+                            <img src="__PUBLIC__/image/new1.png" style="margin-right: 7px; float: right"/>
+                        </if>
+
                     </li>
                 </foreach>
 
@@ -223,10 +224,11 @@
                                 mySubstring("{$v.title}",21);
                             </script>
                         </a>
-                        <if condition="$k == 0">
-                            <img src="__PUBLIC__/image/new1.png" style="margin-left: 5px;"/>
-                        </if>
                         <samp class="new-time">{$v.create_time|substr=###,0,11}</samp>
+                        <if condition="$k == 0">
+                            <img src="__PUBLIC__/image/new1.png" style="margin-right: 7px; float: right"/>
+                        </if>
+
                     </li>
                 </foreach>
             </ul>

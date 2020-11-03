@@ -64,7 +64,7 @@
             'aduit_test' => '成人教育',
             'system_login' => '系统登录',
             'self_test_intro' => '自学考试招生简章',
-            'aduit_test_intro' => '成人教育考生简章'
+            'aduit_test_intro' => '成人教育招生简章'
         ]
     );
 ?>
