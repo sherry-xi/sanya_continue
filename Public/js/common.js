@@ -22,29 +22,55 @@ function removeMessage(){
 }
 
 /**
+ * 获取字符串 出现的字母和数字数量
+ * @param string
+ */
+function getStringNumberCount(string){
+
+    var charCount = 0; //英文字符数量
+    for(var i=0;i<string.length;i++) {
+        //对每一位字符串进行判断，如果Unicode编码在0-127，计数器+1；否则+2
+        if (string.charCodeAt(i) < 128 && string.charCodeAt(i) >= 0) {
+            charCount++; //一个英文在Unicode表中站一个字符位
+        }
+    }
+    return charCount;
+}
+
+/**
  * 字符串截断输出 超过maxLength长度用...表示
  * @param str 字符串
  * @param maxLength 最大长度
  */
 
 function mySubstring(str,maxLength,isReturn){
+
     if(maxLength == undefined || maxLength==null ||maxLength==''){
         maxLength = 20;
     }
     if(str==''){
         return false;
     }
-    var len     = str.length;
+
     var newStr  = str;
-    if(len > maxLength){
-        newStr = str.substring(0,maxLength);
+    newStr = str.substring(0,maxLength);
+    var num = getStringNumberCount(newStr);
+
+    if(num>=2){ //英文和数字 字符占用字节比中文短
+        var addition =  Math.floor(num/2);
+        newStr = str.substring(0,maxLength+addition);
+        console.log(num+'-'+addition);
     }
+
+
     if(isReturn==undefined){
         document.write(newStr);
     }else{
         return  newStr;
     }
 }
+
+
 /**
  * 根据id对比两个控件值是否一致
  * @param id1
