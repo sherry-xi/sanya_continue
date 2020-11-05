@@ -36,20 +36,6 @@ class IndexController extends BaseController{
         $this->assign('images',$images);
         */
 
-        //首页图片链接 系统登陆 成人教育等
-        $configLinks = formatByKey(M('config')->where(['type'=>6])->select(),'keyword');
-        $keys = C('web-links');
-        $links = [];
-
-        foreach($keys as $key=>$value){
-            $links[] = [
-                'name' => $key,
-                'text' => $value,
-                'img' => $configLinks[$key."_img"]?$configLinks[$key."_img"]['value']:'',
-                'link' => $configLinks[$key."_link"]?$configLinks[$key."_link"]['value']:'',
-            ];
-        }
-
         //查询通知公告
         $inform = $this->getArticleByCids($channelIds['inform'],7);
         $inform = $inform?$inform['article']:[];
@@ -58,7 +44,7 @@ class IndexController extends BaseController{
         $this->assign('informChannel',$informChannel);
         $this->assign('inform',$inform);
 
-        $this->assign('links',$links);
+
         $this->assign('news', $news);
         $this->assign('slide',$slide);
         $this->assign('newsChannel',$newsChannel);

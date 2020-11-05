@@ -20,56 +20,21 @@
                 </foreach>
             </ul>
         </if>
-        <div class="web-channel-left-title">
-            <img src="__PUBLIC__/image/syslogin1.png" /><span>系统登陆</span>
-        </div>
-        <ul class="web-channel-menu">
-            <li><a target="_blank" href="{$sysLinks.login.self}">自考学习平台</a></li>
-            <li><a target="_blank" href="{$sysLinks.login.aduit}">成教学习平台</a></li>
-            <li><a  target="_blank" href="{$sysLinks.login.education}">教育培训平台</a></li>
-        </ul>
 
         <div class="web-channel-left-title">
             <img src="__PUBLIC__/image/syslogin.png" /><span>招生导航</span>
 
         </div>
         <ul class="web-channel-menu">
-            <li><a   href="{$sysLinks.navi.slef}">自学考试</a></li>
-            <li><a  href="{$sysLinks.navi.aduit}">成人教育</a></li>
-            <li><a  href="{$sysLinks.navi.education}">教育培训</a></li>
+            <foreach name="links" item="value">
+                <li><a  href="{$value.link}">{$value.text}</a></li>
+            </foreach>
         </ul>
         <a href="{:U('Admis/User/login')}">
-        <div class="syslogin-title">
-
-        </div>
-        </a>
-        <!-- 系统登陆 -->
-        <!--
-        <div class="web-channel-left-syslogin">
-            <div >
-                <div class="syslogin-title">
-                    <img src="__PUBLIC__/image/syslogin1.png" /><span>系统登陆</span>
-                </div>
-                <ul>
-                    <li><a target="_blank" href="{$sysLinks.login.self}">自考学习平台</a></li>
-                    <li><a target="_blank" href="{$sysLinks.login.aduit}">成教学习平台</a></li>
-                    <li><a  target="_blank" href="{$sysLinks.login.education}">教育培训平台</a></li>
-                </ul>
-
-                <div  class="syslogin-title">
-                    <img src="__PUBLIC__/image/syslogin.png" /><span>招生导航</span>
-                </div>
-                <ul>
-                    <li><a   href="{$sysLinks.navi.slef}">自学考试</a></li>
-                    <li><a  href="{$sysLinks.navi.aduit}">成人教育</a></li>
-                    <li><a  href="{$sysLinks.navi.education}">教育培训</a></li>
-                </ul>
-                <div   class="syslogin-title">
-                    <img src="__PUBLIC__/image/student_apply.png" /><a href="{$sysLinks.join}" >网上预报名</a>
-                </div>
+            <div class="syslogin-title">
             </div>
-        </div>
-        -->
+        </a>
+
     </div>
 
 

@@ -66,33 +66,9 @@ class BaseController extends Controller{
         session('msg',array());
 		$this->assign('layui',ACTION_NAME=='article'?'layui2':'layui');
 
-		$links = M("config")->where(['type'=>4])->select();
-		$links = array_column($links,null,'keyword');
 
-		//登陆信息
-        $sysLinks = [
-            /* 废弃
-            'login' => [
-                'self' => $links['syslogin-self']['value'], //自考平台
-                'aduit' => $links['syslogin-aduit']['value'], //成人教育平台
-                'education' => $links['syslogin-education']['value'], //教育培训平台
-            ],
-            'navi' => [
-
-                'slef' => U('Home/Channel/index',array('pid'=>68,'mid'=>86)),//自学考试导航
-                'aduit' => U('Home/Channel/index',array('pid'=>68,'mid'=>87)), //成人教育导航
-                'education' => U('Home/Channel/index',array('pid'=>68,'mid'=>88)),//教育培训
-            ],
-            'join' => U('Home/Apply/index'), //网上报名
-            'teacher' => $links['syslogin-teacher']['value'], //教务系统
-            'manage' => $links['syslogin-manage']['value'], //管理系统
-            'self-test-intro'=> $links['self-test-intro']['value'],
-            'aduit-test-intro'=> $links['aduit-test-intro']['value'],
-            */
-        ];
-
+        $this->assign('links',$this->getIndexPictrueLinks()); //首页图片链接 系统登陆 成人教育等
         $this->assign("keyword",I('keyword'));
-        $this->assign('sysLinks',$sysLinks);
 		
 
     }
@@ -348,5 +324,24 @@ class BaseController extends Controller{
             $apartment[$id]['major'] = $major;
         }
         return $apartment;
+    }
+
+    /**
+     * 获取首页图片区域链接
+     */
+    public function getIndexPictrueLinks(){
+        $configLinks = formatByKey(M('config')->where(['type'=>6])->select(),'keyword');
+        $keys = C('web-links');
+        $links = [];
+
+        foreach($keys as $key=>$value){
+            $links[] = [
+                'name' => $key,
+                'text' => $value,
+                'img' => $configLinks[$key."_img"]?$configLinks[$key."_img"]['value']:'',
+                'link' => $configLinks[$key."_link"]?$configLinks[$key."_link"]['value']:'',
+            ];
+        }
+        return $links;
     }
 }
