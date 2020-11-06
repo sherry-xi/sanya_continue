@@ -30,11 +30,13 @@
                 <li><a  href="{$value.link}">{$value.text}</a></li>
             </foreach>
         </ul>
-        <a href="{:U('Admis/User/login')}">
-            <div class="syslogin-title">
-            </div>
-        </a>
 
+        <if condition="$pid eq 18">
+            <a href="{:U('Admis/User/login')}">
+                <div class="syslogin-title">
+                </div>
+            </a>
+        </if>
     </div>
 
 
