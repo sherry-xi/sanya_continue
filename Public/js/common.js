@@ -42,7 +42,6 @@ function getStringNumberCount(string){
  * @param str 字符串
  * @param maxLength 最大长度
  */
-
 function mySubstring(str,maxLength,isReturn){
 
     if(maxLength == undefined || maxLength==null ||maxLength==''){
@@ -53,15 +52,17 @@ function mySubstring(str,maxLength,isReturn){
     }
 
     var newStr  = str;
-    newStr = str.substring(0,maxLength);
-    var num = getStringNumberCount(newStr);
+    if(!isIE()){
+        newStr = str.substring(0,maxLength);
+        var num = getStringNumberCount(newStr);
 
-    if(num>=2){ //英文和数字 字符占用字节比中文短
-        var addition =  Math.floor(num/2);
-        newStr = str.substring(0,maxLength+addition);
-        console.log(num+'-'+addition);
+        if(num>=2){ //英文和数字 字符占用字节比中文短
+            var addition =  Math.floor(num/2);
+            newStr = str.substring(0,maxLength+addition);
+        }
+    }else{
+        newStr = str.substring(0,maxLength);
     }
-
 
     if(isReturn==undefined){
         document.write(newStr);
@@ -70,8 +71,22 @@ function mySubstring(str,maxLength,isReturn){
     }
 }
 
-
 /**
+ *  判断是否IE浏览器
+ * @returns {boolean}
+ */
+function isIE() {
+    var userAgent = window.navigator.userAgent;
+    if (userAgent.indexOf("MSIE") >= 1 ){
+        return true; //仅10极其以下有效 IE11 无效
+    } else  if((userAgent.indexOf("WOW64") >=1) && (userAgent.indexOf("Chrome") <1) ){
+        return true;// IE 11
+    }
+    return false;
+
+}
+
+    /**
  * 根据id对比两个控件值是否一致
  * @param id1
  * @param id2
