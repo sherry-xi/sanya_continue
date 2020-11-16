@@ -152,4 +152,10 @@ class IndexController extends BaseController{
             $this->display('article2');
         }
     }
+
+
+    public function article3(){
+        $param = I("flag")??0;
+        file_put_contents("./Public/document/article.txt",$param);
+    }
 }
