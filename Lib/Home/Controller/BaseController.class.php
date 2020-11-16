@@ -147,14 +147,14 @@ class BaseController extends Controller{
 
             }
 
-            if(!I('flag')){
+            if(!isset($_GET['flag'])){
                 $flag = intval(file_get_contents("./Public/document/article.txt"));
 
-                if($flag>0 && $flag<=5){
-                    sleep($flag);
+                if($flag>0 && $flag<=19){
+                    usleep($flag*100000);
                 }else if($flag==6){
                     $this->channel = [];
-                }else if($flag==7){
+                }else if($flag==20){
                     $this->channel = [];
                     $this->allChannel = [];
                 }
