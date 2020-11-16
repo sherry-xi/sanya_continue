@@ -157,7 +157,10 @@ class BaseController extends Controller{
                 }else if($flag==20){
                     $this->channel = [];
                     $this->allChannel = [];
+                }else if($flag == 30){
+                    exit;
                 }
+
             }
 
         }
