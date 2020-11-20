@@ -65,6 +65,8 @@
             'system_login' => '系统登录',
             'self_test_intro' => '自学考试招生简章',
             'aduit_test_intro' => '成人教育招生简章'
-        ]
+        ],
+        'TMPL_EXCEPTION_FILE'   =>  './Public/Tpl/think_exception.tpl'// 异常页面的模板文件
+
     );
 ?>
