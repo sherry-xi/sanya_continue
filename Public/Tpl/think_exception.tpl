@@ -48,7 +48,7 @@ h1{ font-size: 32px; line-height: 48px; }
     <p>Trace:<?php echo $e['trace'];?></p>
 </div>
 <div class="bg" style="display: block">
-    <div class="text">服务器繁忙，请联系网络中心</div>
+    <div class="text">服务器繁忙，请稍后再访问</div>
 </div>
 
 
